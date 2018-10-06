@@ -21,7 +21,7 @@ phases:
     commands:
       - npm run build
      # copy the contents of /build to S3
-      - aws s3 cp --recursive --acl public-read ./dist s3://${WEBSITE_S3_BUCKET}/ --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
+      - aws s3 cp --recursive --acl public-read ./dist s3://${WEBSITE_S3_BUCKET}/ 
       # set the cache-control headers for service-worker.js to prevent
       # browser caching
       - >
