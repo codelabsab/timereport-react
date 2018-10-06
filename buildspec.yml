@@ -20,22 +20,8 @@ phases:
   build:
     commands:
       - npm run build
-      # Use AWS SAM to package the application by using AWS CloudFormation
-      - aws s3 cp --recursive dist/ s3://$WEBSITE_S3_BUCKET/ --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
-version: 0.1
-phases:
-  pre_build:
-    commands:
-      - echo Installing source NPM dependencies...
-      - npm install
-  build:
-    commands:
-      - echo Build started on `date`
-      - npm run build
-  post_build:
-    commands:
-      # copy the contents of /build to S3
-      - aws s3 cp --recursive --acl public-read ./dist s3://${WEBSITE_S3_BUCKET}/
+     # copy the contents of /build to S3
+      - aws s3 cp --recursive --acl public-read ./dist s3://${WEBSITE_S3_BUCKET}/ --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
       # set the cache-control headers for service-worker.js to prevent
       # browser caching
       - >
