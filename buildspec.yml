@@ -1,25 +1,54 @@
 version: 0.2
-
+env:
+  variables:
+    API_ROOT: "${API_ROOT}"
+  parameter-store:
+    SLACK_CLIENT_ID: "SLACK_CLIENT_ID"
+    SLACK_CLIENT_SECRET: "SLACK_CLIENT_SECRET"
+    SLACK_REDIRECT_URI: "SLACK_REDIRECT_URI"
 phases:
   install:
     commands:
+      # update npm to latest version
+      - npm update -g
       # Install dependencies needed for running tests
       - npm install
-
       # Upgrade AWS CLI to the latest version
       - pip install --upgrade awscli
-  pre_build:
-    commands:
-      # Discover and run unit tests in the 'tests' directory
-      - npm test
+      # printenvs
+      - printenv
   build:
     commands:
+      - npm run build
       # Use AWS SAM to package the application by using AWS CloudFormation
-      - aws s3 cp --recursive public/ s3://$WEBSITE_S3_BUCKET/public/ --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
-      - sed -i -e "s|assets/|$WEBSITE_S3_PREFIX/public/assets/|g" public/index.html
-      - aws cloudformation package --template template.yml --s3-bucket $S3_BUCKET --output-template template-export.yml
-
+      - aws s3 cp --recursive dist/ s3://$WEBSITE_S3_BUCKET/ --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
+version: 0.1
+phases:
+  pre_build:
+    commands:
+      - echo Installing source NPM dependencies...
+      - npm install
+  build:
+    commands:
+      - echo Build started on `date`
+      - npm run build
+  post_build:
+    commands:
+      # copy the contents of /build to S3
+      - aws s3 cp --recursive --acl public-read ./dist s3://${WEBSITE_S3_BUCKET}/
+      # set the cache-control headers for service-worker.js to prevent
+      # browser caching
+      - >
+        aws s3 cp --acl public-read
+        --cache-control="max-age=0, no-cache, no-store, must-revalidate"
+        ./dist/bundle.js s3://${WEBSITE_S3_BUCKET}/
+      # set the cache-control headers for index.html to prevent
+      # browser caching
+      - >
+        aws s3 cp --acl public-read
+        --cache-control="max-age=0, no-cache, no-store, must-revalidate"
+        ./dist/index.html s3://${WEBSITE_S3_BUCKET}/
 artifacts:
-  type: zip
   files:
-    - template-export.yml
+    - '**/*'
+  base-directory: dist
