@@ -1,10 +1,13 @@
 version: 0.2
 env:
-  variables:
-    API_ROOT: "${API_ROOT}"
   parameter-store:
+    # these values are stored in ssm
+    #
+    # set API_ROOT to your timereport-node lambda endpoint
+    API_ROOT: "API_ROOT"
     SLACK_CLIENT_ID: "SLACK_CLIENT_ID"
     SLACK_CLIENT_SECRET: "SLACK_CLIENT_SECRET"
+    # http://domainname-s3-website-region.amazonaws.com/#/oauthtoken
     SLACK_REDIRECT_URI: "SLACK_REDIRECT_URI"
 phases:
   install:
