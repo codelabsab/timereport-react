@@ -19,7 +19,9 @@
     "react-bootstrap": "^0.32.4",
     "react-bootstrap-daterangepicker": "^4.1.0",
     "react-dom": "^16.3.1",
-    "react-router-dom": "^4.3.1"
+    "react-router-dom": "^4.3.1",
+    "react-toastify": "^4.4.0",
+    "redux": "^4.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",

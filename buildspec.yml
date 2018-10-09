@@ -7,7 +7,7 @@ env:
     API_ROOT: "API_ROOT"
     SLACK_CLIENT_ID: "SLACK_CLIENT_ID"
     SLACK_CLIENT_SECRET: "SLACK_CLIENT_SECRET"
-    # http://domainname-s3-website-region.amazonaws.com/#/oauthtoken
+    # http://domainname-s3-website-region.amazonaws.com/#/timereport
     SLACK_REDIRECT_URI: "SLACK_REDIRECT_URI"
 phases:
   install:
