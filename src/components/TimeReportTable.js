@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import './../styles/TimeReportTable.css';
 export default class TimeReportTable extends Component {
+    handleUserDelete(event, user){
+        console.log(user);
+    }
     render() {
         const data = this.props.data;
         const marginStyle = {
@@ -15,6 +18,7 @@ export default class TimeReportTable extends Component {
                         <th>Type Id</th>
                         <th>Start</th>
                         <th>Hours</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -24,6 +28,14 @@ export default class TimeReportTable extends Component {
                             <td><span className="type">{row.type_id}</span></td>
                             <td>{row.start}</td>
                             <td>{row.hours}</td>
+                            <td>
+                                <button className="btn btn-sm btn-warning" type="button">
+                                    <span className="oi oi-pencil"></span>
+                                </button>&nbsp;
+                                <button className="btn btn-sm btn-danger" type="button" onClick={(e) => this.handleUserDelete(e, row)}>
+                                    <span className="oi oi-trash"></span>
+                                </button>
+                            </td>
                         </tr>;
                     })}
                 </tbody>
