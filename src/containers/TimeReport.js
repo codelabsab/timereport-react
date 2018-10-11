@@ -27,7 +27,8 @@ export default class TimeReport extends Component {
     WebService.getAccessToken(accessTokenUrl)
       .then((response) => {
         if (AuthService.validateAccessToken(response)) {
-          StorageService.setAccessToken(response.access_token);
+          //use team_id instead of access_token
+          StorageService.setAccessToken(response.team_id);
           this.getUsersAndDatePickers();
         }
       })
