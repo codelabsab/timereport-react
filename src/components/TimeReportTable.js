@@ -9,9 +9,20 @@ export default class TimeReportTable extends Component {
         const marginStyle = {
             marginTop: '1rem'
         };
-        let table = [];
+        let table = <table className="table">
+        <thead className="thead-light">
+            <tr>
+                <th>User Name</th>
+                <th>Type Id</th>
+                <th>Start</th>
+                <th>Hours</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
         if (data && data.length > 0)
-            table.push(<table className="table">
+        table =<table className="table">
                 <thead className="thead-light">
                     <tr>
                         <th>User Name</th>
@@ -39,7 +50,7 @@ export default class TimeReportTable extends Component {
                         </tr>;
                     })}
                 </tbody>
-            </table>);
+            </table>
         return (
             <div className="table-data" style={marginStyle}>
                 {table}
