@@ -56,6 +56,12 @@ export default class TimeReport extends Component {
       .catch(this.handleError);
 
   }
+  handleInTimeReportChange(change, action){
+    if(action === 'DELETE'){
+      let timeReportDataExceptDeleted = this.state.timeReportData.filter(t => JSON.stringify(t) !== JSON.stringify(change));
+      this.setState({ timeReportData: timeReportDataExceptDeleted });
+    }
+  }
 
   render() {
     const marginStyle = { marginTop: '1rem' };
@@ -75,7 +81,9 @@ export default class TimeReport extends Component {
           <DatePicker onDateChange={(datePeriod) => this.handleInDateChange(datePeriod)} />
           <div style={{ width: '35rem' }}></div>
         </div>
-        <TimeReportTable data={this.state.timeReportData} />
+        <TimeReportTable data={this.state.timeReportData} 
+          onChange={(change, action) => this.handleInTimeReportChange(change, action)} 
+        />
         <ToastContainer />
       </div>
     );

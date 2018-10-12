@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import './../styles/TimeReportTable.css';
 export default class TimeReportTable extends Component {
-    handleUserDelete(event, user){
-        console.log(user);
+    constructor(props) {
+        super(props);
+    }
+    handleUserDelete(event, user) {
+        if (confirm('Are you sure to delete?')) {
+            this.props.onChange(user, 'DELETE');
+        }
     }
     render() {
         const data = this.props.data;
@@ -10,19 +15,19 @@ export default class TimeReportTable extends Component {
             marginTop: '1rem'
         };
         let table = <table className="table">
-        <thead className="thead-light">
-            <tr>
-                <th>User Name</th>
-                <th>Type Id</th>
-                <th>Start</th>
-                <th>Hours</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+            <thead className="thead-light">
+                <tr>
+                    <th>User Name</th>
+                    <th>Type Id</th>
+                    <th>Start</th>
+                    <th>Hours</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
         if (data && data.length > 0)
-        table =<table className="table">
+            table = <table className="table">
                 <thead className="thead-light">
                     <tr>
                         <th>User Name</th>
