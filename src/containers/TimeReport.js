@@ -40,7 +40,7 @@ export default class TimeReport extends Component {
     .catch(this.handleError);
 
   handleError = (e) => {
-    let errorMessage = 'Error : '+ (e.message || 'Error Occured');
+    let errorMessage = 'Error : ' + (e.message || 'Error Occured');
     toast.error('🚨 ' + errorMessage, toastConfig);
   }
   handleInUserNameChange = (userName) => this.setState({ user: userName });
@@ -63,11 +63,17 @@ export default class TimeReport extends Component {
       return (<div><ToastContainer /></div>);
     return (
       <div style={marginStyle}>
-        <div className="selection-group">
+        <div className="input-group">
+          <div className="input-group-prepend">
+            <label className="input-group-text">
+            <span class="oi oi-person"></span> &nbsp;&nbsp;Select User:
+            </label>
+          </div>
           <NameSelectionComponent
             users={this.state.users}
             onChangeUserName={(name) => this.handleInUserNameChange(name)} />
           <DatePicker onDateChange={(datePeriod) => this.handleInDateChange(datePeriod)} />
+          <div style={{ width: '35rem' }}></div>
         </div>
         <TimeReportTable data={this.state.timeReportData} />
         <ToastContainer />
