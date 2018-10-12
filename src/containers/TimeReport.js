@@ -52,14 +52,33 @@ export default class TimeReport extends Component {
       userName: this.state.user
     };
     WebService.getTimeReport(query)
-      .then(data => this.setState({ timeReportData: data }))
+      .then(data => this.setState({ timeReportData: this.buildTimeReportData(data)}))
       .catch(this.handleError);
-
   }
-  handleInTimeReportChange(change, action){
-    if(action === 'DELETE'){
+
+  buildTimeReportData = (data) =>
+    data.map(d =>
+      Object.assign({}, d, {
+        editable: false,
+        toggleEditable: function () {
+          this.editable = !this.editable;
+        }
+      })
+    );
+
+
+  handleInTimeReportChange(change, action) {
+    if (action === 'DELETE') {
       let timeReportDataExceptDeleted = this.state.timeReportData.filter(t => JSON.stringify(t) !== JSON.stringify(change));
       this.setState({ timeReportData: timeReportDataExceptDeleted });
+    }
+    if (action === 'EDIT') {
+      let timeReportMapped = this.state.timeReportData.map(t => {
+        if(JSON.stringify(t) === JSON.stringify(change))
+          t.toggleEditable();
+          return t;
+      });
+      this.setState({ timeReportData: timeReportMapped });
     }
   }
 
@@ -72,7 +91,7 @@ export default class TimeReport extends Component {
         <div className="input-group">
           <div className="input-group-prepend">
             <label className="input-group-text">
-            <span class="oi oi-person"></span> &nbsp;&nbsp;Select User:
+              <span class="oi oi-person"></span> &nbsp;&nbsp;Select User:
             </label>
           </div>
           <NameSelectionComponent
@@ -81,8 +100,8 @@ export default class TimeReport extends Component {
           <DatePicker onDateChange={(datePeriod) => this.handleInDateChange(datePeriod)} />
           <div style={{ width: '35rem' }}></div>
         </div>
-        <TimeReportTable data={this.state.timeReportData} 
-          onChange={(change, action) => this.handleInTimeReportChange(change, action)} 
+        <TimeReportTable data={this.state.timeReportData}
+          onChange={(change, action) => this.handleInTimeReportChange(change, action)}
         />
         <ToastContainer />
       </div>

@@ -4,10 +4,17 @@ export default class TimeReportTable extends Component {
     constructor(props) {
         super(props);
     }
+    handleUserEditDone(event, user) {
+        this.props.onChange(user, 'EDIT');
+    }
+
     handleUserDelete(event, user) {
         if (confirm('Are you sure to delete?')) {
             this.props.onChange(user, 'DELETE');
         }
+    }
+    handleUserEdit(event, user) {
+        this.props.onChange(user, 'EDIT');
     }
     render() {
         const data = this.props.data;
@@ -41,16 +48,46 @@ export default class TimeReportTable extends Component {
                     {data.map((row) => {
                         return <tr>
                             <td>{row.user_name}</td>
-                            <td><span className="type">{row.type_id}</span></td>
-                            <td>{row.start}</td>
-                            <td>{row.hours}</td>
                             <td>
-                                <button className="btn btn-sm btn-warning" type="button">
-                                    <span className="oi oi-pencil"></span>
-                                </button>&nbsp;
-                                <button className="btn btn-sm btn-danger" type="button" onClick={(e) => this.handleUserDelete(e, row)}>
-                                    <span className="oi oi-trash"></span>
-                                </button>
+                                {!row.editable && (
+                                    <span className="type">{row.type_id}</span>
+                                )}
+                                {row.editable && (
+                                    <input type="text" style={{ width: '10rem' }} name="hours" defaultValue={row.type_id}></input>
+                                )}
+                            </td>
+                            <td>
+                                {!row.editable && (
+                                    <span>{row.start}</span>
+                                )}
+                                {row.editable && (
+                                    <input type="text" style={{ width: '6rem' }} name="hours" defaultValue={row.start}></input>
+                                )}
+                            </td>
+                            <td>
+                                {!row.editable && (
+                                    <span>{row.hours}</span>
+                                )}
+                                {row.editable && (
+                                    <input type="text" style={{ width: '2rem' }} name="hours" defaultValue={row.hours}></input>
+                                )}
+                            </td>
+                            <td>
+                                {!row.editable && (
+                                    <span>
+                                        <button className="btn btn-sm btn-warning" type="button" onClick={(e) => this.handleUserEdit(e, row)}>
+                                            <span className="oi oi-pencil"></span>
+                                        </button>
+                                        <button className="btn btn-sm btn-danger" style={{ marginLeft: '.5rem' }} type="button" onClick={(e) => this.handleUserDelete(e, row)}>
+                                            <span className="oi oi-trash"></span>
+                                        </button>
+                                    </span>
+                                )}
+                                {row.editable && (
+                                    <button className="btn btn-sm btn-warning" type="button" onClick={(e) => this.handleUserEditDone(e, row)}>
+                                        <span className="oi oi-check"></span>
+                                    </button>
+                                )}
                             </td>
                         </tr>;
                     })}
