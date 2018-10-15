@@ -5,6 +5,7 @@ export default class TimeReportTable extends Component {
         super(props);
     }
     handleUserEditDone(event, user) {
+        console.log('handleUserEditDone',event,user);
         this.props.onChange(user, 'EDIT');
     }
 
@@ -46,7 +47,7 @@ export default class TimeReportTable extends Component {
                 </thead>
                 <tbody>
                     {data.map((row) => {
-                        return <tr>
+                        return <tr key={row.id}>
                             <td>{row.user_name}</td>
                             <td>
                                 {!row.editable && (
