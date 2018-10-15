@@ -5,6 +5,16 @@ export default class TimeReportTable extends Component {
         super(props);
     }
 
+    handleUserAddRequest(event) {
+        this.props.onAdd();
+    }
+
+    handleUserAddDone(event) {
+        let addedUser = this.getUserAddChange();
+        this.props.onChange(addedUser, 'ADD');
+        this.props.onAdd();
+    }
+
     handleUserEditDone(event, user) {
         let changedUser = this.getUserEditChange(user.id);
         this.props.onChange(changedUser, 'EDIT_DONE');
@@ -28,11 +38,21 @@ export default class TimeReportTable extends Component {
             hours: document.getElementById('hours' + id).value,
         }
     }
+    getUserAddChange = () => {
+        return {
+            user_name: document.getElementById('new_user_name').value,
+            type_id: document.getElementById('new_type_id').value,
+            start: document.getElementById('new_start').value,
+            hours: document.getElementById('new_hours').value,
+        }
+    }
     render() {
         const data = this.props.data;
+        const showNewRow = this.props.showNewRow;
         const marginStyle = {
             marginTop: '1rem'
         };
+
         let table = <table className="table">
             <thead className="thead-light">
                 <tr>
@@ -43,20 +63,37 @@ export default class TimeReportTable extends Component {
                     <th></th>
                 </tr>
             </thead>
-            <tbody></tbody>
-        </table>
-        if (data && data.length > 0)
-            table = <table className="table">
-                <thead className="thead-light">
-                    <tr>
-                        <th>User Name</th>
-                        <th>Type Id</th>
-                        <th>Start</th>
-                        <th>Hours</th>
-                        <th></th>
-                    </tr>
-                </thead>
+            {data && data.length > 0 && (
                 <tbody>
+                    <tr>
+                        <td>
+                            <button onClick={(e) => this.handleUserAddRequest(e)}
+                                style={{ marginLeft: '.5rem' }} type="button" className="btn btn-clear">
+                                <span className="oi oi-plus"></span> &nbsp;&nbsp;Add New
+                            </button>
+                        </td>
+                    </tr>
+                    {showNewRow && (
+                        <tr>
+                            <td>
+                                <input id="new_user_name" type="text" className="form-control" style={{ width: '10rem', background: 'floralwhite' }} name="user_name" ></input>
+                            </td>
+                            <td>
+                                <input id="new_type_id" type="text" className="form-control" style={{ width: '10rem', background: 'floralwhite' }} name="type_id" ></input>
+                            </td>
+                            <td>
+                                <input id="new_start" type="text" className="form-control" style={{ width: '7rem', background: 'floralwhite' }} name="start" ></input>
+                            </td>
+                            <td>
+                                <input id="new_hours" type="text" className="form-control" style={{ width: '3rem', background: 'floralwhite' }} name="hours" ></input>
+                            </td>
+                            <td>
+                                <button className="btn btn-sm btn-success" type="button" onClick={(e) => this.handleUserAddDone(e)}>
+                                    <span className="oi oi-check"></span>
+                                </button>
+                            </td>
+                        </tr>
+                    )}
                     {data.map((row) => {
                         return <tr key={row.id}>
                             <td>{row.user_name}</td>
@@ -104,7 +141,8 @@ export default class TimeReportTable extends Component {
                         </tr>;
                     })}
                 </tbody>
-            </table>
+            )}
+        </table>
         return (
             <div className="table-data" style={marginStyle}>
                 {table}

@@ -43,6 +43,7 @@ export default class TimeReport extends Component {
     let errorMessage = 'Error : ' + (e.message || 'Error Occured');
     toast.error('🚨 ' + errorMessage, toastConfig);
   }
+
   handleInUserNameChange = (userName) => this.setState({ user: userName });
 
   handleInDateChange(datePeriod) {
@@ -66,12 +67,32 @@ export default class TimeReport extends Component {
       })
     );
 
+  buildTimeReportSingle = (row) =>
+    Object.assign({}, row, {
+      editable: false,
+      toggleEditable: function () {
+        this.editable = !this.editable;
+      }
+    })
 
   handleInTimeReportChange(change, action) {
+    if (action === 'ADD') {
+      let changeToBeadded = this.buildTimeReportSingle({
+        id: (new Date()).getTime(),
+        user_name: change.user_name,
+        type_id: change.type_id,
+        start: change.start,
+        hours: change.hours,
+      });
+      let timeReportDataWithAddedUser = this.state.timeReportData.concat([changeToBeadded]);
+      this.setState({ timeReportData: timeReportDataWithAddedUser });
+    }
+
     if (action === 'DELETE') {
       let timeReportDataExceptDeleted = this.state.timeReportData.filter(t => t.id !== change.id);
       this.setState({ timeReportData: timeReportDataExceptDeleted });
     }
+
     if (action === 'EDIT') {
       let timeReportMapped = this.state.timeReportData.map(t => {
         if (t.id === change.id)
@@ -80,6 +101,7 @@ export default class TimeReport extends Component {
       });
       this.setState({ timeReportData: timeReportMapped });
     }
+
     if (action === 'EDIT_DONE') {
       let timeReportMapped = this.state.timeReportData.map(t => {
         if (t.id === change.id) {
@@ -89,7 +111,6 @@ export default class TimeReport extends Component {
           t.hours = change.hours;
         }
         return t;
-
       });
       this.setState({ timeReportData: timeReportMapped });
     }
@@ -110,12 +131,18 @@ export default class TimeReport extends Component {
           <NameSelectionComponent
             users={this.state.users}
             onChangeUserName={(name) => this.handleInUserNameChange(name)} />
+
           <DatePicker onDateChange={(datePeriod) => this.handleInDateChange(datePeriod)} />
+
           <div style={{ width: '35rem' }}></div>
         </div>
+
         <TimeReportTable data={this.state.timeReportData}
+          showNewRow={this.state.showNewRow}
+          onAdd={() => this.setState({ showNewRow: !this.state.showNewRow })}
           onChange={(change, action) => this.handleInTimeReportChange(change, action)}
         />
+
         <ToastContainer />
       </div>
     );
