@@ -19,7 +19,7 @@ export default class NameSelectionComponent extends Component {
           className="custom-select"
           style={marginStyle}
           onChange={e => this.handleUserNameChange(e)}>
-          <option key={ALL_USER} value={ALL_USER} selected>All Users</option>
+          <option key={ALL_USER} value={ALL_USER}>All Users</option>
           {
             usersName.map(
               userName => <option key={userName} value={userName}>{userName}</option>

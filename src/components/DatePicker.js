@@ -15,7 +15,7 @@ export default class DatePicker extends Component {
         return (
             <DateRangePicker onApply={(e, p) => this.handleDateChange(e, p)}>
                 <button type="button" className="btn btn-secondary">
-                    <span class="oi oi-calendar"></span> &nbsp;&nbsp;Select Date
+                    <span className="oi oi-calendar"></span> &nbsp;&nbsp;Select Date
                 </button>
             </DateRangePicker>
         );

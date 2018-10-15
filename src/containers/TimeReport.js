@@ -104,7 +104,7 @@ export default class TimeReport extends Component {
         <div className="input-group">
           <div className="input-group-prepend">
             <label className="input-group-text">
-              <span class="oi oi-person"></span> &nbsp;&nbsp;Select User:
+              <span className="oi oi-person"></span> &nbsp;&nbsp;Select User:
             </label>
           </div>
           <NameSelectionComponent
