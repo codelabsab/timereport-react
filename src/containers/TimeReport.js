@@ -52,7 +52,7 @@ export default class TimeReport extends Component {
       userName: this.state.user
     };
     WebService.getTimeReport(query)
-      .then(data => this.setState({ timeReportData: this.buildTimeReportData(data)}))
+      .then(data => this.setState({ timeReportData: this.buildTimeReportData(data) }))
       .catch(this.handleError);
   }
 
@@ -69,14 +69,27 @@ export default class TimeReport extends Component {
 
   handleInTimeReportChange(change, action) {
     if (action === 'DELETE') {
-      let timeReportDataExceptDeleted = this.state.timeReportData.filter(t => JSON.stringify(t) !== JSON.stringify(change));
+      let timeReportDataExceptDeleted = this.state.timeReportData.filter(t => t.id !== change.id);
       this.setState({ timeReportData: timeReportDataExceptDeleted });
     }
     if (action === 'EDIT') {
       let timeReportMapped = this.state.timeReportData.map(t => {
-        if(JSON.stringify(t) === JSON.stringify(change))
+        if (t.id === change.id)
           t.toggleEditable();
-          return t;
+        return t;
+      });
+      this.setState({ timeReportData: timeReportMapped });
+    }
+    if (action === 'EDIT_DONE') {
+      let timeReportMapped = this.state.timeReportData.map(t => {
+        if (t.id === change.id) {
+          t.toggleEditable();
+          t.type_id = change.type_id;
+          t.start = change.start;
+          t.hours = change.hours;
+        }
+        return t;
+
       });
       this.setState({ timeReportData: timeReportMapped });
     }

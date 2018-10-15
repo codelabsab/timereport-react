@@ -4,9 +4,10 @@ export default class TimeReportTable extends Component {
     constructor(props) {
         super(props);
     }
+
     handleUserEditDone(event, user) {
-        console.log('handleUserEditDone',event,user);
-        this.props.onChange(user, 'EDIT');
+        let changedUser = this.getUserEditChange(user.id);
+        this.props.onChange(changedUser, 'EDIT_DONE');
     }
 
     handleUserDelete(event, user) {
@@ -14,8 +15,18 @@ export default class TimeReportTable extends Component {
             this.props.onChange(user, 'DELETE');
         }
     }
+
     handleUserEdit(event, user) {
         this.props.onChange(user, 'EDIT');
+    }
+    
+    getUserEditChange = (id) => {
+        return {
+            id: id,
+            type_id: document.getElementById('type_id' + id).value,
+            start: document.getElementById('start' + id).value,
+            hours: document.getElementById('hours' + id).value,
+        }
     }
     render() {
         const data = this.props.data;
@@ -54,7 +65,7 @@ export default class TimeReportTable extends Component {
                                     <span className="type">{row.type_id}</span>
                                 )}
                                 {row.editable && (
-                                    <input type="text" style={{ width: '10rem' }} name="hours" defaultValue={row.type_id}></input>
+                                    <input id={'type_id' + row.id} type="text" style={{ width: '10rem' }} name="type_id" defaultValue={row.type_id}></input>
                                 )}
                             </td>
                             <td>
@@ -62,7 +73,7 @@ export default class TimeReportTable extends Component {
                                     <span>{row.start}</span>
                                 )}
                                 {row.editable && (
-                                    <input type="text" style={{ width: '6rem' }} name="hours" defaultValue={row.start}></input>
+                                    <input id={'start' + row.id} type="text" style={{ width: '6rem' }} name="start" defaultValue={row.start}></input>
                                 )}
                             </td>
                             <td>
@@ -70,7 +81,7 @@ export default class TimeReportTable extends Component {
                                     <span>{row.hours}</span>
                                 )}
                                 {row.editable && (
-                                    <input type="text" style={{ width: '2rem' }} name="hours" defaultValue={row.hours}></input>
+                                    <input id={'hours' + row.id} type="text" style={{ width: '2rem' }} name="hours" defaultValue={row.hours}></input>
                                 )}
                             </td>
                             <td>
