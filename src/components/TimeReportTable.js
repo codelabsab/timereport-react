@@ -63,38 +63,40 @@ export default class TimeReportTable extends Component {
                     <th></th>
                 </tr>
             </thead>
-            {data && data.length > 0 && (
-                <tbody>
+
+            <tbody>
+                <tr>
+                    <td>
+                        <button onClick={(e) => this.handleUserAddRequest(e)}
+                            style={{ marginLeft: '.5rem' }} type="button" className="btn btn-clear">
+                            <span className="oi oi-plus"></span> &nbsp;&nbsp;Add New
+                            </button>
+                    </td>
+                </tr>
+                {showNewRow && (
                     <tr>
                         <td>
-                            <button onClick={(e) => this.handleUserAddRequest(e)}
-                                style={{ marginLeft: '.5rem' }} type="button" className="btn btn-clear">
-                                <span className="oi oi-plus"></span> &nbsp;&nbsp;Add New
+                            <input id="new_user_name" type="text" className="form-control" style={{ width: '10rem', background: 'floralwhite' }} name="user_name" ></input>
+                        </td>
+                        <td>
+                            <input id="new_type_id" type="text" className="form-control" style={{ width: '10rem', background: 'floralwhite' }} name="type_id" ></input>
+                        </td>
+                        <td>
+                            <input id="new_start" type="text" className="form-control" style={{ width: '7rem', background: 'floralwhite' }} name="start" ></input>
+                        </td>
+                        <td>
+                            <input id="new_hours" type="text" className="form-control" style={{ width: '3rem', background: 'floralwhite' }} name="hours" ></input>
+                        </td>
+                        <td>
+                            <button className="btn btn-sm btn-success" type="button" onClick={(e) => this.handleUserAddDone(e)}>
+                                <span className="oi oi-check"></span>
                             </button>
                         </td>
                     </tr>
-                    {showNewRow && (
-                        <tr>
-                            <td>
-                                <input id="new_user_name" type="text" className="form-control" style={{ width: '10rem', background: 'floralwhite' }} name="user_name" ></input>
-                            </td>
-                            <td>
-                                <input id="new_type_id" type="text" className="form-control" style={{ width: '10rem', background: 'floralwhite' }} name="type_id" ></input>
-                            </td>
-                            <td>
-                                <input id="new_start" type="text" className="form-control" style={{ width: '7rem', background: 'floralwhite' }} name="start" ></input>
-                            </td>
-                            <td>
-                                <input id="new_hours" type="text" className="form-control" style={{ width: '3rem', background: 'floralwhite' }} name="hours" ></input>
-                            </td>
-                            <td>
-                                <button className="btn btn-sm btn-success" type="button" onClick={(e) => this.handleUserAddDone(e)}>
-                                    <span className="oi oi-check"></span>
-                                </button>
-                            </td>
-                        </tr>
-                    )}
-                    {data.map((row) => {
+                )}
+                {
+                    data && data.length > 0 &&
+                    data.map((row) => {
                         return <tr key={row.id}>
                             <td>{row.user_name}</td>
                             <td>
@@ -139,9 +141,10 @@ export default class TimeReportTable extends Component {
                                 )}
                             </td>
                         </tr>;
-                    })}
-                </tbody>
-            )}
+                    })
+                }
+            </tbody>
+
         </table>
         return (
             <div className="table-data" style={marginStyle}>

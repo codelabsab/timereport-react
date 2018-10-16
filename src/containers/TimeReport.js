@@ -20,7 +20,7 @@ const toastConfig = {
 export default class TimeReport extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {timeReportData:[]};
     StorageService.resetAccessToken();
     let verificationCode = AuthService.getVerificationCode(props.location.search);
     let accessTokenUrl = AuthService.getAccessTokenUrl(verificationCode);
