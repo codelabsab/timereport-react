@@ -22,6 +22,39 @@ export function getTimeReport(query) {
         .then(res => res.json())
         .then(handleErrors2);
 }
+
+export function createTimeReport(query) {
+    let urlSegemntAccessToken = '?access_token=' + StorageService.getAccessToken();
+    return fetch(API_ROOT + '/api/timereport2' + urlSegemntAccessToken, {
+        method: 'POST',
+        body: JSON.stringify(query),
+        headers: { 'Content-Type': 'application/json' }
+    })
+        .then(res => res.json())
+        .then(handleErrors2);
+}
+
+export function updateTimeReport(query) {
+    let urlSegemntAccessToken = '?access_token=' + StorageService.getAccessToken();
+    return fetch(API_ROOT + '/api/timereport2/'+ query.id + urlSegemntAccessToken, {
+        method: 'PUT',
+        body: JSON.stringify(query),
+        headers: { 'Content-Type': 'application/json' }
+    })
+        .then(res => res.json())
+        .then(handleErrors2);
+}
+
+export function deleteTimeReport(query) {
+    let urlSegemntAccessToken = '?access_token=' + StorageService.getAccessToken();
+    return fetch(API_ROOT + '/api/timereport2/'+ query.id + urlSegemntAccessToken, {
+        method: 'DELETE'
+    })
+        .then(res => res.json())
+        .then(handleErrors2);
+}
+
+
 function handleErrors(response) {
     console.log('slack api', response);
     if (!response.ok) {

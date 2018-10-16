@@ -84,12 +84,22 @@ export default class TimeReport extends Component {
         start: change.start,
         hours: change.hours,
       });
+
+      WebService.createTimeReport(change)
+      .then(response => console.log(response))
+      .catch(this.handleError);
+
       let timeReportDataWithAddedUser = this.state.timeReportData.concat([changeToBeadded]);
       this.setState({ timeReportData: timeReportDataWithAddedUser });
     }
 
     if (action === 'DELETE') {
       let timeReportDataExceptDeleted = this.state.timeReportData.filter(t => t.id !== change.id);
+      
+      WebService.deleteTimeReport(change)
+      .then(response => console.log(response))
+      .catch(this.handleError);
+
       this.setState({ timeReportData: timeReportDataExceptDeleted });
     }
 
@@ -112,6 +122,11 @@ export default class TimeReport extends Component {
         }
         return t;
       });
+
+      WebService.updateTimeReport(change)
+      .then(response => console.log(response))
+      .catch(this.handleError);
+
       this.setState({ timeReportData: timeReportMapped });
     }
   }
