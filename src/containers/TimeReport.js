@@ -6,22 +6,12 @@ import * as AuthService from '../services/AuthService';
 import * as WebService from '../services/WebService';
 import * as StorageService from '../services/StorageService';
 import * as TimeReportBuildService from '../services/TimeReportBuildService';
-
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-const toastConfig = {
-  position: "top-right",
-  autoClose: 7000,
-  hideProgressBar: false,
-  closeOnClick: true,
-  pauseOnHover: false,
-  draggable: true
-};
+import { NotifyContainer, NotifyService } from '../services/NotifyService';
 
 export default class TimeReport extends Component {
   constructor(props) {
     super(props);
-    this.state = {timeReportData:[]};
+    this.state = { timeReportData: [] };
     StorageService.resetAccessToken();
     let verificationCode = AuthService.getVerificationCode(props.location.search);
     let accessTokenUrl = AuthService.getAccessTokenUrl(verificationCode);
@@ -42,7 +32,7 @@ export default class TimeReport extends Component {
 
   handleError = (e) => {
     let errorMessage = 'Error : ' + (e.message || 'Error Occured');
-    toast.error('🚨 ' + errorMessage, toastConfig);
+    NotifyService.notify(errorMessage);
   }
 
   handleInUserNameChange = (userName) => this.setState({ user: userName });
@@ -69,8 +59,8 @@ export default class TimeReport extends Component {
       });
 
       WebService.createTimeReport(change)
-      .then(response => console.log(response))
-      .catch(this.handleError);
+        .then(response => console.log(response))
+        .catch(this.handleError);
 
       let timeReportDataWithAddedUser = this.state.timeReportData.concat([changeToBeadded]);
       this.setState({ timeReportData: timeReportDataWithAddedUser });
@@ -78,10 +68,10 @@ export default class TimeReport extends Component {
 
     if (action === 'DELETE') {
       let timeReportDataExceptDeleted = this.state.timeReportData.filter(t => t.id !== change.id);
-      
+
       WebService.deleteTimeReport(change)
-      .then(response => console.log(response))
-      .catch(this.handleError);
+        .then(response => console.log(response))
+        .catch(this.handleError);
 
       this.setState({ timeReportData: timeReportDataExceptDeleted });
     }
@@ -107,8 +97,8 @@ export default class TimeReport extends Component {
       });
 
       WebService.updateTimeReport(change)
-      .then(response => console.log(response))
-      .catch(this.handleError);
+        .then(response => console.log(response))
+        .catch(this.handleError);
 
       this.setState({ timeReportData: timeReportMapped });
     }
@@ -117,7 +107,7 @@ export default class TimeReport extends Component {
   render() {
     const marginStyle = { marginTop: '1rem' };
     if (!this.state.users)
-      return (<div><ToastContainer /></div>);
+      return (<div><NotifyContainer /></div>);
     return (
       <div style={marginStyle}>
         <div className="input-group">
@@ -141,7 +131,7 @@ export default class TimeReport extends Component {
           onChange={(change, action) => this.handleInTimeReportChange(change, action)}
         />
 
-        <ToastContainer />
+        <NotifyContainer />
       </div>
     );
   }
