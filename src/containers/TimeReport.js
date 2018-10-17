@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import NameSelectionComponent from '../components/NameSelectionComponent';
 import DatePicker from '../components/DatePicker';
 import TimeReportTable from '../components/TimeReportTable';
-import LoaderComponent from '../components/LoaderComponent';
 import * as AuthService from '../services/AuthService';
 import * as WebService from '../services/WebService';
 import * as StorageService from '../services/StorageService';
+import * as TimeReportBuildService from '../services/TimeReportBuildService';
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const toastConfig = {
@@ -53,31 +54,13 @@ export default class TimeReport extends Component {
       userName: this.state.user
     };
     WebService.getTimeReport(query)
-      .then(data => this.setState({ timeReportData: this.buildTimeReportData(data) }))
+      .then(data => this.setState({ timeReportData: TimeReportBuildService.buildTimeReportData(data) }))
       .catch(this.handleError);
   }
 
-  buildTimeReportData = (data) =>
-    data.map(d =>
-      Object.assign({}, d, {
-        editable: false,
-        toggleEditable: function () {
-          this.editable = !this.editable;
-        }
-      })
-    );
-
-  buildTimeReportSingle = (row) =>
-    Object.assign({}, row, {
-      editable: false,
-      toggleEditable: function () {
-        this.editable = !this.editable;
-      }
-    })
-
   handleInTimeReportChange(change, action) {
     if (action === 'ADD') {
-      let changeToBeadded = this.buildTimeReportSingle({
+      let changeToBeadded = TimeReportBuildService.buildTimeReportSingle({
         id: (new Date()).getTime(),
         user_name: change.user_name,
         type_id: change.type_id,
