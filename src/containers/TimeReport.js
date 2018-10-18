@@ -50,20 +50,16 @@ export default class TimeReport extends Component {
 
   handleInTimeReportChange(change, action) {
     if (action === 'ADD') {
-      let changeToBeadded = TimeReportBuildService.buildTimeReportSingle({
-        id: (new Date()).getTime(),
-        user_name: change.user_name,
-        type_id: change.type_id,
-        start: change.start,
-        hours: change.hours,
-      });
-
       WebService.createTimeReport(change)
-        .then(response => console.log(response))
+        .then(newUser => {
+          console.log(newUser);
+          let newUserBuild = TimeReportBuildService.buildTimeReportSingle(newUser);
+          let timeReportDataWithAddedUser = this.state.timeReportData.concat([newUserBuild]);
+          this.setState({ timeReportData: timeReportDataWithAddedUser });
+        })
         .catch(this.handleError);
 
-      let timeReportDataWithAddedUser = this.state.timeReportData.concat([changeToBeadded]);
-      this.setState({ timeReportData: timeReportDataWithAddedUser });
+      
     }
 
     if (action === 'DELETE') {
