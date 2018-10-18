@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './../styles/TimeReportTable.css';
+const moment = require('moment');
 export default class TimeReportTable extends Component {
     constructor(props) {
         super(props);
@@ -52,6 +53,7 @@ export default class TimeReportTable extends Component {
         const marginStyle = {
             marginTop: '1rem'
         };
+        const today = moment().format('YYYY-MM-DD');
 
         let table = <table className="table">
             <thead className="thead-light">
@@ -82,7 +84,7 @@ export default class TimeReportTable extends Component {
                             <input id="new_type_id" type="text" className="form-control" style={{ width: '10rem', background: 'floralwhite' }} name="type_id" ></input>
                         </td>
                         <td>
-                            <input id="new_start" type="text" className="form-control" style={{ width: '7rem', background: 'floralwhite' }} name="start" ></input>
+                            <input id="new_start" type="text" className="form-control" style={{ width: '7rem', background: 'floralwhite' }} name="start"  defaultValue={today} ></input>
                         </td>
                         <td>
                             <input id="new_hours" type="text" className="form-control" style={{ width: '3rem', background: 'floralwhite' }} name="hours" ></input>
