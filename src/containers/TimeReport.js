@@ -79,7 +79,7 @@ export default class TimeReport extends Component {
     if (action === 'EDIT') {
       let timeReportMapped = this.state.timeReportData.map(t => {
         if (t.id === change.id)
-          t.toggleEditable();
+          t.setEditable(true);
         return t;
       });
       this.setState({ timeReportData: timeReportMapped });
@@ -88,7 +88,7 @@ export default class TimeReport extends Component {
     if (action === 'EDIT_DONE') {
       let timeReportMapped = this.state.timeReportData.map(t => {
         if (t.id === change.id) {
-          t.toggleEditable();
+          t.setEditable(false);
           t.type_id = change.type_id;
           t.start = change.start;
           t.hours = change.hours;

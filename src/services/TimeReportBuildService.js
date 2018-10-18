@@ -4,7 +4,7 @@ export const buildTimeReportData = (data) =>
 export const buildTimeReportSingle = (row) =>
     Object.assign({}, row, {
         editable: false,
-        toggleEditable: function () {
-            this.editable = !this.editable;
+        setEditable: function (editable) {
+            this.editable = editable;
         }
     })
