@@ -68,12 +68,13 @@ export default class TimeReport extends Component {
 
     if (action === 'DELETE') {
       let timeReportDataExceptDeleted = this.state.timeReportData.filter(t => t.id !== change.id);
-
       WebService.deleteTimeReport(change)
-        .then(response => console.log(response))
+        .then(response => {
+          console.log(response);
+          this.setState({ timeReportData: timeReportDataExceptDeleted });
+        })
         .catch(this.handleError);
 
-      this.setState({ timeReportData: timeReportDataExceptDeleted });
     }
 
     if (action === 'EDIT') {
@@ -97,10 +98,12 @@ export default class TimeReport extends Component {
       });
 
       WebService.updateTimeReport(change)
-        .then(response => console.log(response))
+        .then(response => {
+          console.log(response);
+          this.setState({ timeReportData: timeReportMapped });
+        })
         .catch(this.handleError);
 
-      this.setState({ timeReportData: timeReportMapped });
     }
   }
 
