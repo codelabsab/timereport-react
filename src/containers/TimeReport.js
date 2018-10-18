@@ -50,7 +50,20 @@ export default class TimeReport extends Component {
 
   handleInTimeReportChange(change, action) {
     if (action === 'ADD') {
-      WebService.createTimeReport(change)
+      let timeReportData = this.state.timeReportData;
+      let exits = timeReportData.find((t) => t.user_name === change.user_name);
+      if(!exits){
+        this.handleError(new Error('Invalid User Name'));
+        return;
+      }
+      let timeReportToCreate = {
+        user_id: exits.user_id,
+        user_name: change.user_name,
+        type_id: change.type_id,
+        start: change.start, 
+        hours: change.hours,
+      };
+      WebService.createTimeReport(timeReportToCreate)
         .then(newUser => {
           console.log(newUser);
           let newUserBuild = TimeReportBuildService.buildTimeReportSingle(newUser);
