@@ -65,7 +65,6 @@ export default class TimeReport extends Component {
       };
       WebService.createTimeReport(timeReportToCreate)
         .then(newUser => {
-          console.log(newUser);
           let newUserBuild = TimeReportBuildService.buildTimeReportSingle(newUser);
           let timeReportDataWithAddedUser = this.state.timeReportData.concat([newUserBuild]);
           this.setState({ timeReportData: timeReportDataWithAddedUser });
@@ -78,10 +77,7 @@ export default class TimeReport extends Component {
     if (action === 'DELETE') {
       let timeReportDataExceptDeleted = this.state.timeReportData.filter(t => t.id !== change.id);
       WebService.deleteTimeReport(change)
-        .then(response => {
-          console.log(response);
-          this.setState({ timeReportData: timeReportDataExceptDeleted });
-        })
+        .then(response => this.setState({ timeReportData: timeReportDataExceptDeleted }))
         .catch(this.handleError);
 
     }
@@ -107,10 +103,7 @@ export default class TimeReport extends Component {
       });
 
       WebService.updateTimeReport(change)
-        .then(response => {
-          console.log(response);
-          this.setState({ timeReportData: timeReportMapped });
-        })
+        .then(response => this.setState({ timeReportData: timeReportMapped }))
         .catch(this.handleError);
 
     }
@@ -128,16 +121,20 @@ export default class TimeReport extends Component {
               <span className="oi oi-person"></span> &nbsp;&nbsp;Select User:
             </label>
           </div>
+
           <NameSelectionComponent
             users={this.state.users}
             onChangeUserName={(name) => this.handleInUserNameChange(name)} />
 
-          <DatePicker onDateChange={(datePeriod) => this.handleInDateChange(datePeriod)} />
+          <DatePicker 
+            onDateChange={(datePeriod) => this.handleInDateChange(datePeriod)} 
+          />
 
           <div style={{ width: '35rem' }}></div>
         </div>
 
-        <TimeReportTable data={this.state.timeReportData}
+        <TimeReportTable 
+          data={this.state.timeReportData}
           showNewRow={this.state.showNewRow}
           onAdd={() => this.setState({ showNewRow: !this.state.showNewRow })}
           onChange={(change, action) => this.handleInTimeReportChange(change, action)}
