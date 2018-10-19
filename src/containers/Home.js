@@ -1,6 +1,6 @@
 import React from "react";
 const urlEncodSlackRedirectUri = SLACK_REDIRECT_URI.replace("#","%23");
-const url = "https://slack.com/oauth/authorize?scope=read&client_id=" + SLACK_CLIENT_ID + "&redirect_uri="+urlEncodSlackRedirectUri;
+const url = SLACK_ROOT_API_URL+"/oauth/authorize?scope=read&client_id=" + SLACK_CLIENT_ID + "&redirect_uri="+urlEncodSlackRedirectUri+"&team=TD61YHFEF";
 
 const Home = () => (
     <div className="card text-center">

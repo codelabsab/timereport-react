@@ -9,6 +9,7 @@ env:
     SLACK_CLIENT_SECRET: "SLACK_CLIENT_SECRET"
     # http://domainname-s3-website-region.amazonaws.com/#/timereport
     SLACK_REDIRECT_URI: "SLACK_REDIRECT_URI"
+    SLACK_ROOT_API_URL: "SLACK_ROOT_API_URL"
 phases:
   install:
     commands:

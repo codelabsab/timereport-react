@@ -16,6 +16,7 @@ API_ROOT = yourdomain.com
 SLACK_CLIENT_ID=slack_client_id
 SLACK_CLIENT_SECRET=slack_client_secret
 SLACK_REDIRECT_URI=yourdomain.com/#/requestaccesstoken 
+SLACK_ROOT_API_URL=https://<yourworkspace>.slack.com
 ```
  
 ## Quick Start
