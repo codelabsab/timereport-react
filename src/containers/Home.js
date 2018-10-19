@@ -8,7 +8,7 @@ const Home = () => (
         <h1 className="card-title">Sign in</h1>
         <p className="card-text">You will be redirected after providing your credentials.</p>
         <a className="btn btn-outline-light" href={url}>
-          <img src={require('./../images/slack2.png')} />
+          <img className="img-fluid" src={require('./../images/slack2.png')} />
         </a>
       </div>
     </div>
