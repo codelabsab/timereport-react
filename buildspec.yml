@@ -10,6 +10,8 @@ env:
     # http://domainname-s3-website-region.amazonaws.com/#/timereport
     SLACK_REDIRECT_URI: "SLACK_REDIRECT_URI"
     SLACK_ROOT_API_URL: "SLACK_ROOT_API_URL"
+    UserPoolId: "UserPoolId"
+    ClientId: "ClientId"
 phases:
   install:
     commands:
