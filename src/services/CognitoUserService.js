@@ -7,11 +7,20 @@ export default class CognitoUserService {
             ClientId: ClientId
         };
         this.userPool = new CognitoUserPool(poolData);
-        this.user = null;
+        this.user = this.userPool.getCurrentUser();
 
     }
 
     getUser = () => this.user;
+
+    confirmRegistration = (confirmationCode) =>
+        this.user.confirmRegistration(confirmationCode, true, function (err, result) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            console.log('User Confimed',result);
+        });
 
     signUp = (data) => {
 
