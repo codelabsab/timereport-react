@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
-import CognitoUserService from '../services/CognitoUserService';
+import { CognitoUserService } from '../services/CognitoUserService';
 
 export default class SignUp extends Component {
     constructor(props) {
         super(props);
-        this.cognitoUser = new CognitoUserService();
     }
 
     doConfirm = (event) => {
         event.preventDefault();
-        this.cognitoUser.confirmRegistration(this.verificationCode.value);
+        CognitoUserService.confirmRegistration(this.verificationCode.value);
     }
 
     doRegister = (event) => {
         event.preventDefault();
-        this.cognitoUser.signUp({
+        CognitoUserService.signUp({
             username: this.username.value,
             email: this.email.value,
             password: this.password.value,
@@ -82,7 +81,7 @@ export default class SignUp extends Component {
 
                 <div className="form-group row">
                     <div className="col-12 col-sm-8 offset-sm-2">
-                        <button className="btn btn-dark" onClick={() => console.log(this.cognitoUser.getUser())}> Check Cognito User</button>
+                        <button className="btn btn-dark" onClick={() => console.log(CognitoUserService.getUser())}> Check Cognito User</button>
                     </div>
                 </div>
 

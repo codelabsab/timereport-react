@@ -1,6 +1,6 @@
 import { CognitoUserPool, CognitoUserAttribute, CognitoUser } from 'amazon-cognito-identity-js';
 
-export default class CognitoUserService {
+export class Service {
     constructor() {
         let poolData = {
             UserPoolId: UserPoolId,
@@ -67,3 +67,5 @@ export default class CognitoUserService {
     deleteUser = (callback) => this.user.deleteUser(callback);
 
 }
+
+export let CognitoUserService = new Service();
