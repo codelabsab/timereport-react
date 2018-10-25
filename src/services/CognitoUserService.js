@@ -1,4 +1,4 @@
-import { CognitoUserPool, CognitoUserAttribute, CognitoUser } from 'amazon-cognito-identity-js';
+import { CognitoUserPool, CognitoUserAttribute, CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
 
 export class Service {
     constructor() {
@@ -8,20 +8,61 @@ export class Service {
         };
         this.userPool = new CognitoUserPool(poolData);
         this.user = this.userPool.getCurrentUser();
+        if (this.user != null) {
+            console.log('User not null');
+            this.user.getSession(function (err, session) {
+                if (err) {
+                    alert(err);
+                    return;
+                }
+                console.log('session validity: ' + session.isValid());
+            });
+        }
 
     }
 
     getUser = () => this.user;
-
+    signOut = () => {
+        if (this.user != null)
+            this.user.globalSignOut();
+    }
     confirmRegistration = (confirmationCode) =>
         this.user.confirmRegistration(confirmationCode, true, function (err, result) {
             if (err) {
                 console.log(err);
                 return;
             }
-            console.log('User Confimed',result);
+            console.log('User Confimed', result);
         });
 
+    authenticateUser = (data) => {
+        let authenticationData = {
+            Username: data.username,
+            Password: data.password,
+        };
+        let authenticationDetails = new AuthenticationDetails(authenticationData);
+
+        let userData = {
+            Username: data.username,
+            Pool: this.userPool
+        };
+        this.user = new CognitoUser(userData);
+        this.user.authenticateUser(authenticationDetails, {
+            onSuccess: function (result) {
+                let accessToken = result.getAccessToken().getJwtToken();
+                console.log(accessToken);
+                /* Use the idToken for Logins Map when Federating User Pools with identity pools or when passing through an Authorization Header to an API Gateway Authorizer*/
+                let idToken = result.idToken.jwtToken;
+                console.log(idToken);
+            },
+
+            onFailure: function (err) {
+                alert(err);
+            },
+
+        });
+
+    }
     signUp = (data) => {
 
         let attributeList = [];
