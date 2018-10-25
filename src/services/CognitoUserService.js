@@ -12,7 +12,7 @@ export class Service {
             console.log('User not null');
             this.user.getSession(function (err, session) {
                 if (err) {
-                    alert(err);
+                    console.log(err);
                     return;
                 }
                 console.log('session validity: ' + session.isValid());
@@ -22,10 +22,20 @@ export class Service {
     }
 
     getUser = () => this.user;
-    signOut = () => {
-        console.log('signOut',this.user != null )
-        if (this.user != null)
-            this.user.globalSignOut();
+    signOut = (callback) => {
+        console.log('signOut', this.user != null)
+        if (this.user != null) {
+            this.user.globalSignOut({
+                onSuccess: function (result) {
+                    console.log('signput result', result);
+                    callback(true)
+                },
+                onFailure: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+
     }
     confirmRegistration = (confirmationCode, callback) =>
         this.user.confirmRegistration(confirmationCode, true, function (err, result) {

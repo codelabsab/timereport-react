@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { CognitoUserService } from '../services/CognitoUserService';
+import { Redirect } from "react-router-dom";
 
 export default class SignIn extends Component {
     constructor(props) {
@@ -22,6 +23,9 @@ export default class SignIn extends Component {
     }
 
     render() {
+        if (this.state.isSignIn) {
+            return <Redirect to='/dashboard' />;
+        }
         return (
             <div>
                 <div className="form-group row">
