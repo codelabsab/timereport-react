@@ -3,12 +3,16 @@ import { BrowserRouter as Router, HashRouter, Route, Link } from "react-router-d
 import TimeReport from '../containers/TimeReport';
 import Home from '../containers/Home';
 import SignUp from "../containers/SignUp";
+import SignIn from "../containers/SignIn";
+import DashBoard from "../containers/DashBoard";
 
 const App = () => (
   <HashRouter>
     <div>
       <Route exact path="/" component={Home} />
       <Route exact path="/signup" component={SignUp} />
+      <Route exact path="/signin" component={SignIn} />
+      <Route exact path="/dashboard" component={DashBoard} />
       <Route path="/timereport" component={TimeReport} />
     </div>
   </HashRouter>

@@ -23,19 +23,21 @@ export class Service {
 
     getUser = () => this.user;
     signOut = () => {
+        console.log('signOut',this.user != null )
         if (this.user != null)
             this.user.globalSignOut();
     }
-    confirmRegistration = (confirmationCode) =>
+    confirmRegistration = (confirmationCode, callback) =>
         this.user.confirmRegistration(confirmationCode, true, function (err, result) {
             if (err) {
                 console.log(err);
                 return;
             }
             console.log('User Confimed', result);
+            callback(true);
         });
 
-    authenticateUser = (data) => {
+    authenticateUser = (data, callback) => {
         let authenticationData = {
             Username: data.username,
             Password: data.password,
@@ -54,6 +56,7 @@ export class Service {
                 /* Use the idToken for Logins Map when Federating User Pools with identity pools or when passing through an Authorization Header to an API Gateway Authorizer*/
                 let idToken = result.idToken.jwtToken;
                 console.log(idToken);
+                callback(true);
             },
 
             onFailure: function (err) {
@@ -63,7 +66,7 @@ export class Service {
         });
 
     }
-    signUp = (data) => {
+    signUp = (data, callback) => {
 
         let attributeList = [];
 
@@ -100,6 +103,7 @@ export class Service {
                     console.log(result.user)
                     console.log('result.user != null  ' + result.user != null)
                     self.user = result.user;
+                    callback(true);
 
                 }
             });
