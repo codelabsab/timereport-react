@@ -1,22 +1,26 @@
 import React, { Component } from 'react';
 import { CognitoUserService } from '../services/CognitoUserService';
+import { Redirect } from "react-router-dom";
 
 export default class DashBoard extends Component {
     constructor(props) {
         super(props);
         console.log(this.state);
-        this.state = { isSignedIn: false };
+        this.state = { isSignedOut: false };
     }
 
     doSignOut = (event) => {
         event.preventDefault();
         CognitoUserService.signOut(() => {
-            this.setState({ isSignedIn: true });
+            this.setState({ isSignedOut: true });
         });
 
     }
 
     render() {
+        if (this.state.isSignedOut) {
+            return <Redirect to='/signin' />;
+        }
         return (
             <div>
                 <form>
