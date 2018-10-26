@@ -5,14 +5,22 @@ import { Redirect } from "react-router-dom";
 export default class DashBoard extends Component {
     constructor(props) {
         super(props);
-        console.log(this.state);
         this.state = { isSignedOut: false };
     }
 
+    componentDidMount() {
+        CognitoUserService.getUserSession((isSignedOut) => {
+            console.log('isSignedOut', isSignedOut);
+            this.setState({ isSignedOut: isSignedOut });
+        });
+        console.log(CognitoUserService.getUser());
+        console.log('GrandChild did mount.');
+    }
+    
     doSignOut = (event) => {
         event.preventDefault();
-        CognitoUserService.signOut(() => {
-            this.setState({ isSignedOut: true });
+        CognitoUserService.signOut((isSignedOut) => {
+            this.setState({ isSignedOut: isSignedOut });
         });
 
     }

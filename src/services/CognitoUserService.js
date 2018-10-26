@@ -8,6 +8,10 @@ export class Service {
         };
         this.userPool = new CognitoUserPool(poolData);
         this.user = this.userPool.getCurrentUser();
+        this.getUserSession();
+
+    }
+    getUserSession = (callback) => {
         if (this.user != null) {
             console.log('User not null');
             this.user.getSession(function (err, session) {
@@ -15,12 +19,17 @@ export class Service {
                     console.log(err);
                     return;
                 }
+                if (callback != null)
+                    callback(false);
                 console.log('session validity: ' + session.isValid());
             });
         }
+        else {
+            if (callback != null)
+                callback(true);
+        }
 
     }
-
     getUser = () => this.user;
     signOut = (callback) => {
         console.log('signOut', this.user != null)
@@ -28,13 +37,16 @@ export class Service {
             this.user.globalSignOut({
                 onSuccess: function (result) {
                     console.log('signput result', result);
-                    callback(true)
+                    callback(true);
                 },
                 onFailure: function (err) {
                     console.log(err);
+                    callback(false);
                 }
             });
         }
+        else
+            callback(true);
 
     }
     confirmRegistration = (confirmationCode, callback) =>
