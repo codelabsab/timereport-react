@@ -39,11 +39,11 @@ export class Service {
                 onSuccess: function (result) {
                     console.log('signput result', result);
                     that.user = null;
-                    callback(true);
+                    callback(false, true);
                 },
                 onFailure: function (err) {
                     console.log(err);
-                    callback(false);
+                    callback(err, false);
                 }
             });
         }

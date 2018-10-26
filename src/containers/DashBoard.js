@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { CognitoUserService } from '../services/CognitoUserService';
 import { Redirect } from "react-router-dom";
+import { NotifyContainer, NotifyService } from '../services/NotifyService';
 
 export default class DashBoard extends Component {
     constructor(props) {
@@ -16,13 +17,22 @@ export default class DashBoard extends Component {
         console.log(CognitoUserService.getUser());
         console.log('GrandChild did mount.');
     }
-    
+
     doSignOut = (event) => {
         event.preventDefault();
-        CognitoUserService.signOut((isSignedOut) => {
-            this.setState({ isSignedOut: isSignedOut });
-        });
+        CognitoUserService.signOut(
+            (error, isSignedOut) => {
+                if (error)
+                    this.handleError(error);
+                else
+                    this.setState({ isSignedOut: isSignedOut });
+            });
 
+    }
+
+    handleError = (e) => {
+        let errorMessage = 'Error : ' + (e.message || 'Error Occured');
+        NotifyService.notify(errorMessage);
     }
 
     render() {
@@ -43,6 +53,7 @@ export default class DashBoard extends Component {
                         <button className="btn btn-dark" onClick={() => console.log(CognitoUserService.getUser())}> Check Cognito User</button>
                     </div>
                 </div>
+                <NotifyContainer />
             </div>
         );
     }
