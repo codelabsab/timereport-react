@@ -55,10 +55,11 @@ export class Service {
         this.user.confirmRegistration(confirmationCode, true, function (err, result) {
             if (err) {
                 console.log(err);
+                callback(err, false);
                 return;
             }
             console.log('User Confimed', result);
-            callback(true);
+            callback(false, true);;
         });
 
     authenticateUser = (data, callback) => {
@@ -80,11 +81,12 @@ export class Service {
                 /* Use the idToken for Logins Map when Federating User Pools with identity pools or when passing through an Authorization Header to an API Gateway Authorizer*/
                 let idToken = result.idToken.jwtToken;
                 console.log(idToken);
-                callback(true);
+                callback(false, true);
             },
 
             onFailure: function (err) {
-                alert(err);
+                //alert(err);
+                callback(err, false);
             },
 
         });
@@ -119,7 +121,9 @@ export class Service {
                 if (err) {
                     if (err.code && err.code == 'UnknownError')
                         return;
-                    throw new Error(err.message || JSON.stringify(err));
+                    callback(new Error(err.message || JSON.stringify(err)), false);
+                    return;
+                    //throw new Error(err.message || JSON.stringify(err));
                 }
                 if (result.user != null) {
                     console.log('result.user')
@@ -127,7 +131,7 @@ export class Service {
                     console.log(result.user)
                     console.log('result.user != null  ' + result.user != null)
                     self.user = result.user;
-                    callback(true);
+                    callback(false, true);
 
                 }
             });

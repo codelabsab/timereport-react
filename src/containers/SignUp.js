@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { CognitoUserService } from '../services/CognitoUserService';
+import { NotifyContainer, NotifyService } from '../services/NotifyService';
+
 export default class SignUp extends Component {
     constructor(props) {
         super(props);
@@ -9,9 +11,12 @@ export default class SignUp extends Component {
     doConfirm = (event) => {
         event.preventDefault();
         CognitoUserService.confirmRegistration(this.verificationCode.value,
-            (flag) => {
-                this.setState({ isSignUpVerified: flag });
-                console.log('isSignUpVerified', flag);
+            (error, isSignUpVerified) => {
+                if (error)
+                    this.handleError(error);
+                else
+                    this.setState({ isSignUpVerified: isSignUpVerified });
+
             }
         );
     }
@@ -23,11 +28,20 @@ export default class SignUp extends Component {
             email: this.email.value,
             password: this.password.value,
             phone_number: this.phone_number.value
-        }, (flag) => {
-            this.setState({ isSignUp: flag });
-            console.log('isSignUp', flag);
-        });
+        },
+            (error, isSignUp) => {
+                if (error)
+                    this.handleError(error);
+                else
+                    this.setState({ isSignUp: isSignUp });
 
+            });
+
+    }
+
+    handleError = (e) => {
+        let errorMessage = 'Error : ' + (e.message || 'Error Occured');
+        NotifyService.notify(errorMessage);
     }
 
     render() {
@@ -127,7 +141,7 @@ export default class SignUp extends Component {
                     </div>
                 </div>
                 <br /> <br />
-
+                <NotifyContainer />
             </div>
         );
     }

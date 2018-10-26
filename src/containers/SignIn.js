@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { CognitoUserService } from '../services/CognitoUserService';
 import { Redirect } from "react-router-dom";
+import { NotifyContainer, NotifyService } from '../services/NotifyService';
 
 export default class SignIn extends Component {
     constructor(props) {
@@ -15,11 +16,18 @@ export default class SignIn extends Component {
             email: this.email.value,
             password: this.password.value,
             phone_number: this.phone_number.value
-        }, (flag) => {
-            this.setState({ isSignIn: flag });
-            console.log('isSignIn', flag);
+        }, (error, isSignIn) => {
+            if (error)
+                this.handleError(error);
+            else
+                this.setState({ isSignIn: isSignIn });
+
         });
 
+    }
+    handleError = (e) => {
+        let errorMessage = 'Error : ' + (e.message || 'Error Occured');
+        NotifyService.notify(errorMessage);
     }
 
     render() {
@@ -71,7 +79,7 @@ export default class SignIn extends Component {
                         <button className="btn btn-dark" onClick={() => console.log(CognitoUserService.getUser())}> Check Cognito User</button>
                     </div>
                 </div>
-
+                <NotifyContainer />
             </div>
         );
     }
