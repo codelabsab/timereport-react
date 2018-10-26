@@ -32,11 +32,13 @@ export class Service {
     }
     getUser = () => this.user;
     signOut = (callback) => {
-        console.log('signOut', this.user != null)
+        console.log('signOut', this.user != null);
+        let that = this;
         if (this.user != null) {
             this.user.globalSignOut({
                 onSuccess: function (result) {
                     console.log('signput result', result);
+                    that.user = null;
                     callback(true);
                 },
                 onFailure: function (err) {
