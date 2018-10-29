@@ -48,7 +48,7 @@ export class Service {
             });
         }
         else
-            callback(true);
+            callback(false, true);
 
     }
     confirmRegistration = (confirmationCode, callback) =>
