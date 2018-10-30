@@ -100,15 +100,10 @@ export class Service {
             Name: 'email',
             Value: data.email
         };
-        let dataPhoneNumber = {
-            Name: 'phone_number',
-            Value: data.phone_number
-        };
-        let attributeEmail = new CognitoUserAttribute(dataEmail);
-        let attributePhoneNumber = new CognitoUserAttribute(dataPhoneNumber);
 
+        let attributeEmail = new CognitoUserAttribute(dataEmail);
+ 
         attributeList.push(attributeEmail);
-        attributeList.push(attributePhoneNumber);
         var self = this;
         this.userPool.signUp(
             data.username,

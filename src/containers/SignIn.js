@@ -14,8 +14,7 @@ export default class SignIn extends Component {
         CognitoUserService.authenticateUser({
             username: this.username.value,
             email: this.email.value,
-            password: this.password.value,
-            phone_number: this.phone_number.value
+            password: this.password.value
         }, (error, isSignIn) => {
             if (error)
                 this.handleError(error);
@@ -58,12 +57,6 @@ export default class SignIn extends Component {
                         {/* <label htmlFor="password" className="col-sm-2 col-form-label">Password</label> */}
                         <div className="col-12 col-sm-8 offset-sm-2">
                             <input placeholder="Password" type="password" className="form-control" ref={(imput) => this.password = imput} />
-                        </div>
-                    </div>
-                    <div className="form-group row">
-                        {/* <label htmlFor="phone_number" className="col-sm-2 col-form-label">Phone Number</label> */}
-                        <div className="col-12 col-sm-8 offset-sm-2">
-                            <input placeholder="Phone Number" type="text" className="form-control" ref={(imput) => this.phone_number = imput} />
                         </div>
                     </div>
                     <div className="form-group row">
