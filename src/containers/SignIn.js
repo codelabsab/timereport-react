@@ -42,19 +42,16 @@ export default class SignIn extends Component {
                 </div>
                 <form>
                     <div className="form-group row">
-                        {/* <label htmlFor="username" className="col-sm-2 col-form-label">User Name</label> */}
                         <div className="col-12 col-sm-8 offset-sm-2">
                             <input placeholder="User Name" type="text" className="form-control" ref={(imput) => this.username = imput} />
                         </div>
                     </div>
                     <div className="form-group row">
-                        {/* <label htmlFor="email" className="col-sm-2 col-form-label">Email</label> */}
                         <div className="col-12 col-sm-8 offset-sm-2">
                             <input placeholder="Email" type="text" className="form-control" ref={(imput) => this.email = imput} />
                         </div>
                     </div>
                     <div className="form-group row">
-                        {/* <label htmlFor="password" className="col-sm-2 col-form-label">Password</label> */}
                         <div className="col-12 col-sm-8 offset-sm-2">
                             <input placeholder="Password" type="password" className="form-control" ref={(imput) => this.password = imput} />
                         </div>
