@@ -17,16 +17,18 @@ export class Service {
             this.user.getSession(function (err, session) {
                 if (err) {
                     console.log(err);
+                    if (callback != null)
+                        callback(err, false);
                     return;
                 }
                 if (callback != null)
-                    callback(false);
+                    callback(false, true);
                 console.log('session validity: ' + session.isValid());
             });
         }
         else {
             if (callback != null)
-                callback(true);
+                callback(false, false);
         }
 
     }

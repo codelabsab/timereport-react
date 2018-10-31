@@ -9,6 +9,15 @@ export default class SignIn extends Component {
         this.state = { isSignIn: false };
     }
 
+    componentDidMount = () => {
+        CognitoUserService.getUserSession((error, isSignIn) => {
+            if (error)
+                this.handleError(error);
+            else
+                this.setState({ isSignIn: isSignIn });
+        });
+    }
+
     doSignIn = (event) => {
         event.preventDefault();
         CognitoUserService.authenticateUser({

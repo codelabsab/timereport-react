@@ -6,13 +6,14 @@ import { NotifyContainer, NotifyService } from '../services/NotifyService';
 export default class DashBoard extends Component {
     constructor(props) {
         super(props);
-        this.state = { isSignedOut: false };
+        this.state = { isSignIn: true };
     }
 
     componentDidMount() {
-        CognitoUserService.getUserSession((isSignedOut) => {
-            console.log('isSignedOut', isSignedOut);
-            this.setState({ isSignedOut: isSignedOut });
+        CognitoUserService.getUserSession((err, isSignIn) => {
+            console.log('isSignIn', isSignIn);
+            console.log('err', err);
+            this.setState({ isSignIn: isSignIn });
         });
         console.log(CognitoUserService.getUser());
         console.log('GrandChild did mount.');
@@ -25,7 +26,7 @@ export default class DashBoard extends Component {
                 if (error)
                     this.handleError(error);
                 else
-                    this.setState({ isSignedOut: isSignedOut });
+                    this.setState({ isSignIn: !isSignedOut });
             });
 
     }
@@ -36,7 +37,7 @@ export default class DashBoard extends Component {
     }
 
     render() {
-        if (this.state.isSignedOut) {
+        if (!this.state.isSignIn) {
             return <Redirect to='/signin' />;
         }
         return (

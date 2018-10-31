@@ -1,13 +1,23 @@
 import React, { Component } from 'react';
 import { CognitoUserService } from '../services/CognitoUserService';
+import { Redirect } from "react-router-dom";
 import { NotifyContainer, NotifyService } from '../services/NotifyService';
 
 export default class SignUp extends Component {
     constructor(props) {
         super(props);
-        this.state = { isSignUp: false, isSignUpVerified: false };
+        this.state = { isSignIn: false, isSignUp: false, isSignUpVerified: false };
     }
 
+    componentDidMount = () => {
+        CognitoUserService.getUserSession((error, isSignIn) => {
+            if (error)
+                this.handleError(error);
+            else
+                this.setState({ isSignIn: isSignIn });
+        });
+    }
+    
     doConfirm = (event) => {
         event.preventDefault();
         CognitoUserService.confirmRegistration(this.verificationCode.value,
@@ -44,6 +54,9 @@ export default class SignUp extends Component {
     }
 
     render() {
+        if (this.state.isSignIn) {
+            return <Redirect to='/dashboard' />;
+        }
         return (
             <div>
                 {(!this.state.isSignUp) &&
