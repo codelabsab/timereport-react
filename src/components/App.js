@@ -11,7 +11,7 @@ import { CognitoUserService } from '../services/CognitoUserService';
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { isSignIn: false, isSignUp: false, isSignUpVerified: false};
+    this.state = { isSignIn: false, isSignUp: false, isSignUpVerified: false };
   }
 
   componentDidMount = () => {
@@ -32,7 +32,9 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <NavBar />
+        <NavBar isSignIn={this.state.isSignIn}
+          onSignOut={(isSignOut) => this.handleInUserSignOut(isSignOut)}
+        />
         <HashRouter>
           <div className="container">
             <Route exact path="/" component={Home} />

@@ -8,23 +8,6 @@ export default class DashBoard extends Component {
         super(props);
     }
 
-    doSignOut = (event) => {
-        event.preventDefault();
-        CognitoUserService.signOut(
-            (error, isSignedOut) => {
-                if (error)
-                    this.handleError(error);
-                else
-                    this.props.onSignOut(isSignedOut)
-            });
-
-    }
-
-    handleError = (e) => {
-        let errorMessage = 'Error : ' + (e.message || 'Error Occured');
-        NotifyService.notify(errorMessage);
-    }
-
     render() {
         if (!this.props.isSignIn) {
             return <Redirect to='/signin' />;
@@ -32,11 +15,7 @@ export default class DashBoard extends Component {
         return (
             <div>
                 <form>
-                    <div className="form-group row">
-                        <div className="col-12 col-sm-8 offset-sm-2">
-                            <button type="submit" className="btn btn-dark" onClick={(e) => this.doSignOut(e)}>SignOut</button>
-                        </div>
-                    </div>
+                    DashBoard
                 </form>
                 <div className="form-group row">
                     <div className="col-12 col-sm-8 offset-sm-2">
