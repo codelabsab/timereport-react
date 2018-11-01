@@ -11,7 +11,6 @@ export default class SignIn extends Component {
         event.preventDefault();
         CognitoUserService.authenticateUser({
             username: this.username.value,
-            email: this.email.value,
             password: this.password.value
         }, (error, isSignIn) => {
             //if (error)
@@ -40,11 +39,6 @@ export default class SignIn extends Component {
                     <div className="form-group row">
                         <div className="col-12 col-sm-8 offset-sm-2">
                             <input placeholder="User Name" type="text" className="form-control" ref={(imput) => this.username = imput} />
-                        </div>
-                    </div>
-                    <div className="form-group row">
-                        <div className="col-12 col-sm-8 offset-sm-2">
-                            <input placeholder="Email" type="text" className="form-control" ref={(imput) => this.email = imput} />
                         </div>
                     </div>
                     <div className="form-group row">
