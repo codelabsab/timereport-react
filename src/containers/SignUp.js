@@ -6,18 +6,7 @@ import { NotifyContainer, NotifyService } from '../services/NotifyService';
 export default class SignUp extends Component {
     constructor(props) {
         super(props);
-        this.state = { isSignIn: false, isSignUp: false, isSignUpVerified: false };
-    }
-
-    componentDidMount = () => {
-        CognitoUserService.getUserSession((error, isSignIn) => {
-            if (error)
-                this.handleError(error);
-            else
-                this.setState({ isSignIn: isSignIn });
-        });
-    }
-    
+    }    
     doConfirm = (event) => {
         event.preventDefault();
         CognitoUserService.confirmRegistration(this.verificationCode.value,
@@ -25,8 +14,7 @@ export default class SignUp extends Component {
                 if (error)
                     this.handleError(error);
                 else
-                    this.setState({ isSignUpVerified: isSignUpVerified });
-
+                    this.props.onSignUpVerified(isSignUpVerified);
             }
         );
     }
@@ -42,10 +30,8 @@ export default class SignUp extends Component {
                 if (error)
                     this.handleError(error);
                 else
-                    this.setState({ isSignUp: isSignUp });
-
+                    this.props.onSignUp(isSignUp);
             });
-
     }
 
     handleError = (e) => {
@@ -54,12 +40,12 @@ export default class SignUp extends Component {
     }
 
     render() {
-        if (this.state.isSignIn) {
+        if (this.props.isSignIn) {
             return <Redirect to='/dashboard' />;
         }
         return (
             <div>
-                {(!this.state.isSignUp) &&
+                {(!this.props.isSignUp) &&
                     <div>
                         <div className="form-group row">
                             <div className="col-12 col-sm-8 offset-sm-2">
@@ -92,7 +78,7 @@ export default class SignUp extends Component {
                 }
                 <br /> <br />
 
-                {(this.state.isSignUp && !this.state.isSignUpVerified) &&
+                {(this.props.isSignUp && !this.props.isSignUpVerified) &&
                     <div>
                         <div className="form-group row">
                             <div className="col-12 col-sm-8 offset-sm-2">
@@ -121,7 +107,7 @@ export default class SignUp extends Component {
                     </div>
                 }
 
-                {(this.state.isSignUpVerified) &&
+                {(this.props.isSignUpVerified) &&
                     <div>
                         <div className="form-group row">
                             <div className="col-12 col-sm-8 offset-sm-2">

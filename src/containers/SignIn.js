@@ -6,18 +6,7 @@ import { NotifyContainer, NotifyService } from '../services/NotifyService';
 export default class SignIn extends Component {
     constructor(props) {
         super(props);
-        this.state = { isSignIn: false };
     }
-
-    componentDidMount = () => {
-        CognitoUserService.getUserSession((error, isSignIn) => {
-            if (error)
-                this.handleError(error);
-            else
-                this.setState({ isSignIn: isSignIn });
-        });
-    }
-
     doSignIn = (event) => {
         event.preventDefault();
         CognitoUserService.authenticateUser({
@@ -25,13 +14,11 @@ export default class SignIn extends Component {
             email: this.email.value,
             password: this.password.value
         }, (error, isSignIn) => {
-            if (error)
-                this.handleError(error);
-            else
-                this.setState({ isSignIn: isSignIn });
-
+            //if (error)
+                //this.handleError(error);
+            //else
+                this.props.onSignIn(isSignIn);
         });
-
     }
     handleError = (e) => {
         let errorMessage = 'Error : ' + (e.message || 'Error Occured');
@@ -39,7 +26,7 @@ export default class SignIn extends Component {
     }
 
     render() {
-        if (this.state.isSignIn) {
+        if (this.props.isSignIn) {
             return <Redirect to='/dashboard' />;
         }
         return (

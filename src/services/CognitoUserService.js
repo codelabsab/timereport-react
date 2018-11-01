@@ -87,7 +87,6 @@ export class Service {
             },
 
             onFailure: function (err) {
-                //alert(err);
                 callback(err, false);
             },
 
@@ -120,7 +119,6 @@ export class Service {
                         return;
                     callback(new Error(err.message || JSON.stringify(err)), false);
                     return;
-                    //throw new Error(err.message || JSON.stringify(err));
                 }
                 if (result.user != null) {
                     console.log('result.user')
