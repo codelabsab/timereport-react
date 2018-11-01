@@ -22,13 +22,13 @@ export default class Navbar extends Component {
                 </a>
                 {
                     this.props.isSignIn &&
-                    <button className="btn btn-outline-light btn-lg" onClick={() => this.doSignOut()}><span className="oi oi-account-logout"></span>&nbsp;SignOut</button>
+                    <button className="btn btn-outline-light btn-md" onClick={() => this.doSignOut()}><span className="oi oi-account-logout"></span>&nbsp;SignOut</button>
                 }
                 {
                     !this.props.isSignIn &&
                     <span>
-                        <a className="btn btn-outline-light btn-lg" href="#/signin"><span className="oi oi-account-login"></span>&nbsp;SignIn</a>&nbsp;
-                        <a className="btn btn-outline-light btn-lg" href="#/signup"><span className="oi oi-person"></span>&nbsp;SignUp</a>
+                        <a className="btn btn-outline-light btn-md" href="#/signin"><span className="oi oi-account-login"></span>&nbsp;SignIn</a>&nbsp;
+                        <a className="btn btn-outline-light btn-md" href="#/signup"><span className="oi oi-person"></span>&nbsp;SignUp</a>
                     </span>
                 }
             </nav>
