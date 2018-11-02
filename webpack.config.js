@@ -45,6 +45,7 @@ module.exports = {
       SLACK_CLIENT_SECRET: process.env.SLACK_CLIENT_SECRET,
       SLACK_REDIRECT_URI: process.env.SLACK_REDIRECT_URI,
       SLACK_ROOT_API_URL: process.env.SLACK_ROOT_API_URL,
+      SLACK_ACCESS_TOKEN: process.env.SLACK_ACCESS_TOKEN,
       UserPoolId: process.env.UserPoolId,
       ClientId: process.env.ClientId
     }),
