@@ -1,11 +1,14 @@
 import * as StorageService from '../services/StorageService';
+const { WebClient } = require('@slack/client');
+const web = new WebClient(SLACK_ACCESS_TOKEN);
 
 export function getAccessToken(url) {
     return fetch(url).then(res => res.json()).then(handleErrors);
 }
 export function findUserByEmail(email){
-    let url = 'https://slack.com/api/users.lookupByEmail?email='+email+'&token='+SLACK_ACCESS_TOKEN;
-    return fetch(url).then(res => res.json()).then(handleErrors);
+    return web.apps.permissions.resources.list();
+    // let url = 'https://slack.com/api/users.lookupByEmail?email='+email+'&token='+SLACK_ACCESS_TOKEN;
+    // return fetch(url).then(res => res.json()).then(handleErrors);
 }
 export function getUsers() {
     let urlSegemntAccessToken = '?access_token=' + StorageService.getAccessToken();
