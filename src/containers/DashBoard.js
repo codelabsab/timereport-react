@@ -11,7 +11,7 @@ export default class DashBoard extends Component {
     getSlackUserName =(event) => {
         event.preventDefault();
         console.log(this.email);
-        WebService.findUserByEmail(this.email).then((response) => console.log(response));
+        WebService.findUserByEmail(this.email.value).then((response) => console.log(response));
     }
     render() {
         if (!this.props.isSignIn) {
