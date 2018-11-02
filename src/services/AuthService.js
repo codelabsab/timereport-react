@@ -1,6 +1,6 @@
 
 export function getAccessTokenUrl(code) {
-    return 'https://slack.com/api/oauth.access?client_id=' + SLACK_CLIENT_ID + '&code=' + code + '&client_secret=' + SLACK_CLIENT_SECRET;
+    return 'https://slack.com/api/oauth.access?scope=read&client_id=' + SLACK_CLIENT_ID + '&code=' + code + '&client_secret=' + SLACK_CLIENT_SECRET;
 }
 
 export function validateAccessToken(response) {
