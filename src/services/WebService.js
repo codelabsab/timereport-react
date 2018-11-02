@@ -3,7 +3,10 @@ import * as StorageService from '../services/StorageService';
 export function getAccessToken(url) {
     return fetch(url).then(res => res.json()).then(handleErrors);
 }
-
+export function findUserByEmail(email){
+    let url = 'https://slack.com/api/users.lookupByEmail?email='+email+'&token='+SLACK_ACCESS_TOKEN;
+    return fetch(url).then(res => res.json()).then(handleErrors);
+}
 export function getUsers() {
     let urlSegemntAccessToken = '?access_token=' + StorageService.getAccessToken();
     console.log(urlSegemntAccessToken);
