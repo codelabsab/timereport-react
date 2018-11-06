@@ -7,14 +7,17 @@ import * as StorageService from '../services/StorageService';
 export default class DashBoard extends Component {
     constructor(props) {
         super(props);
-        console.log('slack user : ', StorageService.getSlackUser())
+        this.getSlackUser();
     }
-    getSlackUserName =(event) => {
-        event.preventDefault();
-        //console.log(this.email.value);
+    
+    getSlackUser =() => {
+        let slackUser = StorageService.getSlackUser();
+        if(slackUser == null){
+            throw new Error('Slack user not found!');
+        }
+        return slackUser;
+    }
 
-        //WebService.userlookupbyemail(this.email.value).then((response) => console.log(response));
-    }
     render() {
         if (!this.props.isSignIn) {
             return <Redirect to='/signin' />;
