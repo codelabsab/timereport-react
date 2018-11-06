@@ -4,25 +4,13 @@ export function getAccessToken(url) {
     return fetch(url).then(res => res.json()).then(handleErrors);
 }
 
-export function userlookupbyemail(email) {
+export function getSlackUsers() {
     let url = 'https://slack.com/api/users.list?token=' + SLACK_ACCESS_TOKEN;
     return fetch(url)
         .then(res => res.json())
-        .then(handleErrors)
-        .then((data) => {
-            return findUserByEmail(data.members,email);
-        });
+        .then(handleErrors);
 }
 
-function findUserByEmail(users,email){
-    let userFound = users.find(function (u) {
-        return u.profile.email == email;
-    });
-    let slackuser = null;
-    if (userFound)
-    slackuser = { id: userFound.id, email: email, team_id: userFound.team_id, name: userFound.name };
-    return slackuser;
-}
 export function getUsers() {
     let urlSegemntAccessToken = '?access_token=' + StorageService.getAccessToken();
     console.log(urlSegemntAccessToken);

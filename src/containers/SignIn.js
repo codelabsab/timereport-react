@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { CognitoUserService } from '../services/CognitoUserService';
 import { Redirect } from "react-router-dom";
 import { NotifyContainer, NotifyService } from '../services/NotifyService';
+import * as SlackService from '../services/SlackService';
 
 export default class SignIn extends Component {
     constructor(props) {
@@ -14,14 +15,17 @@ export default class SignIn extends Component {
             password: this.password.value
         }, (error, email) => {
             //if (error)
-                //this.handleError(error);
+            //this.handleError(error);
             //else
-                let isSignIn = !!email;
-                CognitoUserService.storeSlackUserIdentity(email);
-                this.props.onSignIn(isSignIn);
+            let isSignIn = !!email;
+            this.storeSlackUserIdentity(email);
+            this.props.onSignIn(isSignIn);
         });
     }
-   
+    storeSlackUserIdentity = (email) => {
+        return SlackService.userLookupByEmail(email)
+            .then(slack_user => console.log(slack_user));
+    }
     handleError = (e) => {
         let errorMessage = 'Error : ' + (e.message || 'Error Occured');
         NotifyService.notify(errorMessage);

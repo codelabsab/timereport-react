@@ -1,6 +1,5 @@
 import { CognitoUserPool, CognitoUserAttribute, CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
 import * as StorageService from '../services/StorageService';
-import * as WebService from '../services/WebService';
 
 export class Service {
     constructor() {
@@ -102,9 +101,7 @@ export class Service {
         });
 
     }
-    storeSlackUserIdentity = (email) => {
-        return WebService.userlookupbyemail(email).then(slack_user => console.log(slack_user));
-    }
+
     signUp = (data, callback) => {
 
         let attributeList = [];
