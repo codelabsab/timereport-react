@@ -12,13 +12,16 @@ export default class SignIn extends Component {
         CognitoUserService.authenticateUser({
             username: this.username.value,
             password: this.password.value
-        }, (error, isSignIn) => {
+        }, (error, email) => {
             //if (error)
                 //this.handleError(error);
             //else
+                let isSignIn = !!email;
+                CognitoUserService.storeSlackUserIdentity(email);
                 this.props.onSignIn(isSignIn);
         });
     }
+   
     handleError = (e) => {
         let errorMessage = 'Error : ' + (e.message || 'Error Occured');
         NotifyService.notify(errorMessage);

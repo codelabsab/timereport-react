@@ -7,3 +7,12 @@ export function getAccessToken(){
 export function resetAccessToken(){
     sessionStorage.removeItem('access_token');
 }
+export function getSlackUser(){
+    return sessionStorage.getItem('slack_user');
+}
+export function setSlackUser(slack_user){
+    return sessionStorage.setItem('slack_user', slack_user);
+}
+export function resetSlackUser(){
+    sessionStorage.removeItem('slack_user');
+}

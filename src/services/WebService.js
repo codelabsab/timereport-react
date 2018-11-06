@@ -1,32 +1,27 @@
 import * as StorageService from '../services/StorageService';
-//import { WebClient } from '@slack/client';
-//const web = new WebClient(SLACK_ACCESS_TOKEN);
 
 export function getAccessToken(url) {
     return fetch(url).then(res => res.json()).then(handleErrors);
 }
+
 export function userlookupbyemail(email) {
     let url = 'https://slack.com/api/users.list?token=' + SLACK_ACCESS_TOKEN;
     return fetch(url)
         .then(res => res.json())
         .then(handleErrors)
         .then((data) => {
-            console.log(data);
             return findUserByEmail(data.members,email);
         });
-    //https://slack.com/api/users.list?token=xoxp-83549292471-395029342704-453103920096-d2ae6e7055090e94c1a0626480c9c680
-    //return web.apps.permissions.resources.list();
-    // let url = 'https://slack.com/api/users.lookupByEmail?email='+email+'&token='+SLACK_ACCESS_TOKEN;
-    // return fetch(url).then(res => res.json()).then(handleErrors);
 }
+
 function findUserByEmail(users,email){
     let userFound = users.find(function (u) {
         return u.profile.email == email;
     });
-    let user = null;
+    let slackuser = null;
     if (userFound)
-        user = { id: userFound.id, team_id: userFound.team_id, name: userFound.name };
-    return user;
+    slackuser = { id: userFound.id, email: email, team_id: userFound.team_id, name: userFound.name };
+    return slackuser;
 }
 export function getUsers() {
     let urlSegemntAccessToken = '?access_token=' + StorageService.getAccessToken();
@@ -93,5 +88,10 @@ function handleErrors2(response) {
     }
     return response;
 }
-
+//import { WebClient } from '@slack/client';
+//const web = new WebClient(SLACK_ACCESS_TOKEN);
+    //https://slack.com/api/users.list?token=xoxp-83549292471-395029342704-453103920096-d2ae6e7055090e94c1a0626480c9c680
+    //return web.apps.permissions.resources.list();
+    // let url = 'https://slack.com/api/users.lookupByEmail?email='+email+'&token='+SLACK_ACCESS_TOKEN;
+    // return fetch(url).then(res => res.json()).then(handleErrors);
 

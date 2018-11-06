@@ -1,4 +1,6 @@
 import { CognitoUserPool, CognitoUserAttribute, CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
+import * as StorageService from '../services/StorageService';
+import * as WebService from '../services/WebService';
 
 export class Service {
     constructor() {
@@ -23,6 +25,13 @@ export class Service {
                 }
                 if (callback != null)
                     callback(false, true);
+                console.log(session);
+                // ----- get email address ?????
+                //let email = this.email.value
+                //WebService.userlookupbyemail(email)
+                //.then((response) => StorageService.setSlackUser(response));
+
+
                 console.log('session validity: ' + session.isValid());
             });
         }
@@ -40,6 +49,7 @@ export class Service {
             this.user.globalSignOut({
                 onSuccess: function (result) {
                     console.log('signput result', result);
+                    StorageService.resetSlackUser();
                     that.user = null;
                     callback(false, true);
                 },
@@ -79,11 +89,10 @@ export class Service {
         this.user.authenticateUser(authenticationDetails, {
             onSuccess: function (result) {
                 let accessToken = result.getAccessToken().getJwtToken();
-                console.log(accessToken);
                 /* Use the idToken for Logins Map when Federating User Pools with identity pools or when passing through an Authorization Header to an API Gateway Authorizer*/
                 let idToken = result.idToken.jwtToken;
-                console.log(idToken);
-                callback(false, true);
+                //self.storeSlackUserIdentity();
+                callback(false, result.idToken.payload.email);
             },
 
             onFailure: function (err) {
@@ -92,6 +101,9 @@ export class Service {
 
         });
 
+    }
+    storeSlackUserIdentity = (email) => {
+        return WebService.userlookupbyemail(email).then(slack_user => console.log(slack_user));
     }
     signUp = (data, callback) => {
 

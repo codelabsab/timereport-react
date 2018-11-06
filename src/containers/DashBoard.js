@@ -3,14 +3,17 @@ import { CognitoUserService } from '../services/CognitoUserService';
 import { Redirect } from "react-router-dom";
 import { NotifyContainer, NotifyService } from '../services/NotifyService';
 import * as WebService from '../services/WebService';
+import * as StorageService from '../services/StorageService';
 export default class DashBoard extends Component {
     constructor(props) {
         super(props);
+        console.log('slack user : ', StorageService.getSlackUser())
     }
     getSlackUserName =(event) => {
         event.preventDefault();
-        console.log(this.email.value);
-        WebService.userlookupbyemail(this.email.value).then((response) => console.log(response));
+        //console.log(this.email.value);
+
+        //WebService.userlookupbyemail(this.email.value).then((response) => console.log(response));
     }
     render() {
         if (!this.props.isSignIn) {
