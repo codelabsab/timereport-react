@@ -8,10 +8,10 @@ export function resetAccessToken(){
     sessionStorage.removeItem('access_token');
 }
 export function getSlackUser(){
-    return sessionStorage.getItem('slack_user');
+    return JSON.parse(sessionStorage.getItem('slack_user'));
 }
 export function setSlackUser(slack_user){
-    return sessionStorage.setItem('slack_user', slack_user);
+    return sessionStorage.setItem('slack_user', JSON.stringify(slack_user));
 }
 export function resetSlackUser(){
     sessionStorage.removeItem('slack_user');

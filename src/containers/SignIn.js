@@ -3,6 +3,7 @@ import { CognitoUserService } from '../services/CognitoUserService';
 import { Redirect } from "react-router-dom";
 import { NotifyContainer, NotifyService } from '../services/NotifyService';
 import * as SlackService from '../services/SlackService';
+import * as StorageService from '../services/StorageService';
 
 export default class SignIn extends Component {
     constructor(props) {
@@ -18,14 +19,18 @@ export default class SignIn extends Component {
             //this.handleError(error);
             //else
             let isSignIn = !!email;
-            this.storeSlackUserIdentity(email);
-            this.props.onSignIn(isSignIn);
+            SlackService.userLookupByEmail(email)
+                .then(slack_user => {
+                    if(slack_user == null){
+                        this.handleError(new Error('Email is not found in slack!'));
+                        return;
+                    }
+                    StorageService.setSlackUser(slack_user);
+                        this.props.onSignIn(isSignIn);
+                });
         });
     }
-    storeSlackUserIdentity = (email) => {
-        return SlackService.userLookupByEmail(email)
-            .then(slack_user => console.log(slack_user));
-    }
+    
     handleError = (e) => {
         let errorMessage = 'Error : ' + (e.message || 'Error Occured');
         NotifyService.notify(errorMessage);
