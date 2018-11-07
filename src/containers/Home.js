@@ -3,7 +3,7 @@ const urlEncodSlackRedirectUri = SLACK_REDIRECT_URI.replace("#", "%23");
 const url = SLACK_ROOT_API_URL + "/oauth/authorize?scope=read&client_id=" + SLACK_CLIENT_ID + "&redirect_uri=" + urlEncodSlackRedirectUri + "&team=TD61YHFEF";
 
 const Home = () => (
-  <div>
+  <div >
     {/* <div className="text-center">
         <a className="btn btn-outline-light" href={url}>
           <img className="img-fluid" src={require('./../images/slack2.png')} />
