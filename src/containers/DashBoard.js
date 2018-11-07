@@ -19,6 +19,7 @@ export default class DashBoard extends Component {
     let slackUser = StorageService.getSlackUser();
     if (this.props.isSignIn && slackUser == null) {
       console.error('Slack user not found!');
+      this.handleError(new Error('Slack user not found!'));
       return;
     }
     StorageService.setAccessToken(slackUser.team_id);
