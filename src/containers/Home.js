@@ -8,7 +8,6 @@ const Home = () => (
         <a className="btn btn-outline-light" href={url}>
           <img className="img-fluid" src={require('./../images/slack2.png')} />
         </a>
- 
     </div> */}
     <div className="text-center">
       <a href={url} className="btn btn-outline-secondary">SignIn With Slack</a>&nbsp;

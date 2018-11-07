@@ -116,24 +116,26 @@ export default class TimeReport extends Component {
     return (
       <div style={marginStyle}>
         <div className="input-group">
-          <div className="input-group-prepend">
-            <label className="input-group-text">
-              <span className="oi oi-person"></span> &nbsp;&nbsp;Select User:
-            </label>
+        <div className="row">
+              <div className="col-sm-6 col-lg-5" style={marginStyle}>
+                <label className="input-group-text">
+                  <span className="oi oi-person"></span> &nbsp;&nbsp;Select User:
+                </label>
+              </div>
+
+              <NameSelectionComponent
+                users={this.state.users}
+                onChangeUserName={(name) => this.handleInUserNameChange(name)} />
+
+              <DatePicker onDateChange={(datePeriod) => this.handleInDateChange(datePeriod)}
+              />
+    
           </div>
-
-          <NameSelectionComponent
-            users={this.state.users}
-            onChangeUserName={(name) => this.handleInUserNameChange(name)} />
-
-          <DatePicker 
-            onDateChange={(datePeriod) => this.handleInDateChange(datePeriod)} 
-          />
 
           <div style={{ width: '35rem' }}></div>
         </div>
 
-        <TimeReportTable 
+        <TimeReportTable
           data={this.state.timeReportData}
           showNewRow={this.state.showNewRow}
           onAdd={() => this.setState({ showNewRow: !this.state.showNewRow })}

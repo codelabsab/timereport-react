@@ -12,12 +12,16 @@ export default class DatePicker extends Component {
         });
     }
     render() {
+        const marginStyle = { marginTop: '1rem' };
         return (
-            <DateRangePicker onApply={(e, p) => this.handleDateChange(e, p)}>
-                <button type="button" className="btn btn-secondary">
-                    <span className="oi oi-calendar"></span> &nbsp;&nbsp;Select Date
+            <div className="col-sm-12 col-lg-1" style={marginStyle}>
+                <DateRangePicker onApply={(e, p) => this.handleDateChange(e, p)}>
+                    <button type="button" className="btn btn-secondary">
+                        <span className="oi oi-calendar"></span> &nbsp;&nbsp;Select Date
                 </button>
-            </DateRangePicker>
+                </DateRangePicker>
+            </div>
+
         );
     }
 }

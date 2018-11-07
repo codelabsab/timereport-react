@@ -15,16 +15,16 @@ export default class DashBoard extends Component {
     this.state = { timeReportData: [] };
   }
 
-  getSlackUser =() => {
+  getSlackUser = () => {
     let slackUser = StorageService.getSlackUser();
-    if(this.props.isSignIn && slackUser == null){
-        console.error('Slack user not found!');
-        return;
+    if (this.props.isSignIn && slackUser == null) {
+      console.error('Slack user not found!');
+      return;
     }
     StorageService.setAccessToken(slackUser.team_id);
     this.getUsersAndDatePickers();
     return slackUser;
-}
+  }
 
   getUsersAndDatePickers = () => WebService.getUsers()
     .then(users => this.setState({ users: users }))
@@ -52,7 +52,7 @@ export default class DashBoard extends Component {
     if (action === 'ADD') {
       let timeReportData = this.state.timeReportData;
       let exits = timeReportData.find((t) => t.user_name === change.user_name);
-      if(!exits){
+      if (!exits) {
         this.handleError(new Error('Invalid User Name'));
         return;
       }
@@ -60,7 +60,7 @@ export default class DashBoard extends Component {
         user_id: exits.user_id,
         user_name: change.user_name,
         type_id: change.type_id,
-        start: change.start, 
+        start: change.start,
         hours: change.hours,
       };
       WebService.createTimeReport(timeReportToCreate)
@@ -71,7 +71,7 @@ export default class DashBoard extends Component {
         })
         .catch(this.handleError);
 
-      
+
     }
 
     if (action === 'DELETE') {
@@ -111,32 +111,35 @@ export default class DashBoard extends Component {
 
   render() {
     const marginStyle = { marginTop: '1rem' };
+    
     if (!this.props.isSignIn) {
-        return <Redirect to='/signin' />;
+      return <Redirect to='/signin' />;
     }
     if (!this.state.users)
       return (<div><NotifyContainer /></div>);
     return (
       <div style={marginStyle}>
         <div className="input-group">
-          <div className="input-group-prepend">
-            <label className="input-group-text">
-              <span className="oi oi-person"></span> &nbsp;&nbsp;Select User:
-            </label>
+        <div className="row">
+              <div className="col-sm-6 col-lg-5" style={marginStyle}>
+                <label className="input-group-text">
+                  <span className="oi oi-person"></span> &nbsp;&nbsp;Select User:
+                </label>
+              </div>
+
+              <NameSelectionComponent
+                users={this.state.users}
+                onChangeUserName={(name) => this.handleInUserNameChange(name)} />
+
+              <DatePicker onDateChange={(datePeriod) => this.handleInDateChange(datePeriod)}
+              />
+    
           </div>
-
-          <NameSelectionComponent
-            users={this.state.users}
-            onChangeUserName={(name) => this.handleInUserNameChange(name)} />
-
-          <DatePicker 
-            onDateChange={(datePeriod) => this.handleInDateChange(datePeriod)} 
-          />
 
           <div style={{ width: '35rem' }}></div>
         </div>
 
-        <TimeReportTable 
+        <TimeReportTable
           data={this.state.timeReportData}
           showNewRow={this.state.showNewRow}
           onAdd={() => this.setState({ showNewRow: !this.state.showNewRow })}
