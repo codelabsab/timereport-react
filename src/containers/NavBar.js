@@ -25,6 +25,7 @@ export default class Navbar extends Component {
                     <button className="btn btn-outline-light btn-md" onClick={() => this.doSignOut()}><span className="oi oi-account-logout"></span>&nbsp;SignOut</button>
                 }
                 {
+                    // need to be delated later on
                     // !this.props.isSignIn &&
                     // <span>
                     //     <span className="d-sm-none">
