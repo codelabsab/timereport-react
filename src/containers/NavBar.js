@@ -25,11 +25,16 @@ export default class Navbar extends Component {
                     <button className="btn btn-outline-light btn-md" onClick={() => this.doSignOut()}><span className="oi oi-account-logout"></span>&nbsp;SignOut</button>
                 }
                 {
-                    !this.props.isSignIn &&
-                    <span>
-                        <a className="btn btn-outline-light btn-md" href="#/signin"><span className="oi oi-account-login"></span>&nbsp;SignIn</a>&nbsp;
-                        <a className="btn btn-outline-light btn-md" href="#/signup"><span className="oi oi-person"></span>&nbsp;SignUp</a>
-                    </span>
+                    // !this.props.isSignIn &&
+                    // <span>
+                    //     <span className="d-sm-none">
+                    //         <a className="btn btn-outline-light btn-md" href="#/signin"><span className="oi oi-account-login"></span>&nbsp;SignIn</a>&nbsp; 
+                    //     </span>
+                    //     <span className="d-none d-md-block">
+                    //         <a className="btn btn-outline-light btn-md" href="#/signin"><span className="oi oi-account-login"></span>&nbsp;SignIn</a>&nbsp;
+                    //         <a className="btn btn-outline-light btn-md" href="#/signup"><span className="oi oi-person"></span>&nbsp;SignUp</a>
+                    //     </span>
+                    // </span>
                 }
             </nav>
         );
