@@ -51,7 +51,8 @@ export default class TimeReportTable extends Component {
         const data = this.props.data;
         const showNewRow = this.props.showNewRow;
         const marginStyle = {
-            marginTop: '1rem'
+            marginTop: '1rem', 
+            overflowX : 'auto'
         };
         const today = moment().format('YYYY-MM-DD');
 
