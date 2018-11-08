@@ -9,11 +9,38 @@ const Home = () => (
           <img className="img-fluid" src={require('./../images/slack2.png')} />
         </a>
     </div> */}
-    <div className="text-center">
+    {/* <div className="text-center">
       <a href={url} className="btn btn-outline-secondary">SignIn With Slack</a>&nbsp;
       <a href="#/signin" className="btn btn-outline-secondary">Regular SignIn</a>&nbsp;
       <a href="#/signup" className="btn  btn-outline-secondary">SignUp</a>
+    </div> */}
+
+    <div class="row">
+      <div class="col d-none d-sm-block"></div>
+      <div class="col">
+        <div class="card-deck text-center">
+          <div class="card shadow">
+            <div class="card-body">
+              <h3><span class="oi oi-timer"></span>Time Report</h3>
+              <ul class="list-unstyled mt-3 mb-4">
+                <li ><a href={url} className="btn btn-outline-secondary btn-block">SignIn With Slack</a>&nbsp;</li>
+                <li ><a href="#/signin" className="btn btn-outline-secondary btn-block">Regular SignIn</a>&nbsp;</li>
+                <li ><a href="#/signup" className="btn  btn-outline-secondary btn-block">SignUp</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col d-none d-sm-block"></div>
+
     </div>
+
+
+
+
+
+
+
   </div>
 );
 
