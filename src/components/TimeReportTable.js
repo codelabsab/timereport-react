@@ -128,14 +128,14 @@ export default class TimeReportTable extends Component {
                             </td>
                             <td>
                                 {!row.editable && (
-                                    <span style={{width :'5rem'}}>
+                                    <div style={{width :'5rem'}}>
                                         <button className="btn btn-sm btn-warning" type="button" onClick={(e) => this.handleUserEdit(e, row)}>
                                             <span className="oi oi-pencil"></span>
                                         </button>
                                         <button className="btn btn-sm btn-danger" style={{ marginLeft: '.5rem' }} type="button" onClick={(e) => this.handleUserDelete(e, row)}>
                                             <span className="oi oi-trash"></span>
                                         </button>
-                                    </span>
+                                    </div>
                                 )}
                                 {row.editable && (
                                     <button className="btn btn-sm btn-warning" type="button" onClick={(e) => this.handleUserEditDone(e, row)}>
