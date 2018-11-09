@@ -9,7 +9,12 @@ const toastConfig = {
     draggable: true
 };
 
-const notify = (errorMessage) => toast.error('🚨 ' + errorMessage, toastConfig);
+const notify = (errorMessage, successMessage) => {
+    if(errorMessage)
+        toast.error('🚨 ' + errorMessage, toastConfig);
+    else
+        toast.success('👌' + successMessage, toastConfig);
+};
 
 export class NotifyContainer extends ToastContainer { };
 export const NotifyService = { notify: notify };
