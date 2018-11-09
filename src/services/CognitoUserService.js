@@ -40,6 +40,33 @@ export class Service {
         }
 
     }
+    forgotPassword = (userName, callback) => {
+        this.user = new CognitoUser({
+            Username : userName,
+            Pool : this.userPool
+        });
+        var self = this;
+        this.user.forgotPassword({
+            onSuccess: function (result) {
+                console.log('call result: ' + result);
+            },
+            onFailure: function(err) {
+                callback(err, false);
+            },
+            inputVerificationCode() {
+                let verificationCode = prompt('Please input verification code ' ,'');
+                let newPassword = prompt('Enter new password ' ,'');
+                self.user.confirmPassword(verificationCode, newPassword, {
+                    onSuccess: function () {
+                        callback(false, true);
+                    },
+                    onFailure: function(err) {
+                        callback(err, false);
+                    }
+                });
+            }
+        });
+    }
     getUser = () => this.user;
     signOut = (callback) => {
         console.log('signOut', this.user != null);

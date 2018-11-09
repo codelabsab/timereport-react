@@ -7,6 +7,7 @@ import SignIn from "../containers/SignIn";
 import DashBoard from "../containers/DashBoard";
 import NavBar from "../containers/NavBar";
 import { CognitoUserService } from '../services/CognitoUserService';
+import ResetPassword from '../containers/ResetPassword';
 
 export default class App extends Component {
   constructor(props) {
@@ -50,7 +51,7 @@ export default class App extends Component {
                     onSignUpVerified={(isSignUpVerified) => this.handleSignUpVerified(isSignUpVerified)}
                   />
               } />
-
+            <Route exact path="/forgotpassword" component={ResetPassword} />
             <Route exact path="/signin"
               render={
                 () =>
