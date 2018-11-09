@@ -128,7 +128,7 @@ export default class TimeReportTable extends Component {
                             </td>
                             <td>
                                 {!row.editable && (
-                                    <span>
+                                    <span style="{{width :5rem}}">
                                         <button className="btn btn-sm btn-warning" type="button" onClick={(e) => this.handleUserEdit(e, row)}>
                                             <span className="oi oi-pencil"></span>
                                         </button>
