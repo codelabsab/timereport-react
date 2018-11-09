@@ -112,7 +112,7 @@ export default class TimeReportTable extends Component {
                             </td>
                             <td>
                                 {!row.editable && (
-                                    <span>{row.start}</span>
+                                    <div style={{ width: '7rem'}} >{row.start}</div>
                                 )}
                                 {row.editable && (
                                     <input id={'start' + row.id} type="text" className="form-control" style={{ width: '7rem', background: 'floralwhite' }} name="start" defaultValue={row.start}></input>
