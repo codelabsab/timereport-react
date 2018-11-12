@@ -57,8 +57,8 @@ export function deleteTimeReport(query) {
     return fetch(API_ROOT + '/api/timereport2/' + query.id + urlSegemntAccessToken, {
         method: 'DELETE'
     })
-        .then(res => res.json())
-        .then(handleErrors2);
+    .then(res => res.json())
+    .then(handleErrors2);
 }
 
 

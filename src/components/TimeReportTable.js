@@ -12,6 +12,7 @@ export default class TimeReportTable extends Component {
 
     handleUserAddDone(event) {
         let addedUser = this.getUserAddChange();
+        console.log(addedUser);
         this.props.onChange(addedUser, 'ADD');
         this.props.onAdd();
     }
@@ -41,7 +42,8 @@ export default class TimeReportTable extends Component {
     }
     getUserAddChange = () => {
         return {
-            user_name: document.getElementById('new_user_name').value,
+            user_id:this.props.slackUser.id,
+            user_name: this.props.slackUser.name,
             type_id: document.getElementById('new_type_id').value,
             start: document.getElementById('new_start').value,
             hours: document.getElementById('new_hours').value,

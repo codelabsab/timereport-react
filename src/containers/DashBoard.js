@@ -61,14 +61,8 @@ export default class DashBoard extends Component {
 
   handleInTimeReportChange(change, action) {
     if (action === 'ADD') {
-      let timeReportData = this.state.timeReportData;
-      let exits = timeReportData.find((t) => t.user_name === change.user_name);
-      if (!exits) {
-        this.handleError(new Error('Invalid User Name'));
-        return;
-      }
       let timeReportToCreate = {
-        user_id: exits.user_id,
+        user_id: change.user_id,
         user_name: change.user_name,
         type_id: change.type_id,
         start: change.start,
