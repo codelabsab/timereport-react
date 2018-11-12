@@ -61,6 +61,10 @@ export default class DashBoard extends Component {
 
   handleInTimeReportChange(change, action) {
     if (action === 'ADD') {
+      if(!this.validateInput(change)){
+        this.handleError(new Error('Field should not be empty!'));
+      }
+
       let timeReportToCreate = {
         user_id: change.user_id,
         user_name: change.user_name,
@@ -75,8 +79,6 @@ export default class DashBoard extends Component {
           this.setState({ timeReportData: timeReportDataWithAddedUser });
         })
         .catch(this.handleError);
-
-
     }
 
     if (action === 'DELETE') {
@@ -114,6 +116,8 @@ export default class DashBoard extends Component {
     }
   }
 
+  validateInput = (input) => (input.type_id.length >0 && input.start.length >0 && input.hours.length >0);
+  
   render() {
     const marginStyle = { marginTop: '1rem' };
     
