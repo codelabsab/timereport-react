@@ -12,7 +12,17 @@ export default class DashBoard extends Component {
   constructor(props) {
     super(props);
     this.getSlackUser();
+    this.getSlackUser2();
     this.state = { timeReportData: [] };
+  }
+
+  getSlackUser2 = () => {
+    let slackUser = StorageService.getSlackUser();
+    if (this.props.isSignIn && slackUser == null) {
+      this.handleError(new Error('Slack user not found!'));
+      return;
+    }
+    return slackUser;
   }
 
   getSlackUser = () => {
@@ -141,6 +151,7 @@ export default class DashBoard extends Component {
         </div>
 
         <TimeReportTable
+          slackUser = {this.getSlackUser2()}
           data={this.state.timeReportData}
           showNewRow={this.state.showNewRow}
           onAdd={() => this.setState({ showNewRow: !this.state.showNewRow })}

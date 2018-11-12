@@ -55,7 +55,6 @@ export default class TimeReportTable extends Component {
             overflowX : 'auto'
         };
         const today = moment().format('YYYY-MM-DD');
-
         let table = <table className="table">
             <thead className="thead-light">
                 <tr>
@@ -79,7 +78,7 @@ export default class TimeReportTable extends Component {
                 {showNewRow && (
                     <tr>
                         <td>
-                            <input id="new_user_name" type="text" className="form-control" style={{ width: '10rem', background: 'floralwhite' }} name="user_name" ></input>
+                            <input id="new_user_name" type="text" className="form-control" style={{ width: '10rem', background: 'floralwhite' }} name="user_name" defaultValue={this.props.slackUser.name}></input>
                         </td>
                         <td>
                             <input id="new_type_id" type="text" className="form-control" style={{ width: '10rem', background: 'floralwhite' }} name="type_id" ></input>
