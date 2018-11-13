@@ -10,6 +10,7 @@ import { NotifyContainer, NotifyService } from '../services/NotifyService';
 
 export default class DashBoard extends Component {
   constructor(props) {
+    console.log('fire from ctor');
     super(props);
     this.getUsersAndDatePickers();
     this.state = { timeReportData: [] };
@@ -20,6 +21,7 @@ export default class DashBoard extends Component {
   componentDidUpdate(prevProps) {
     console.log('componentDidUpdate');
   }
+
   getUsersAndDatePickers = () => WebService.getUsers()
     .then(users => this.setState({ users: users }))
     .catch(this.handleError);
