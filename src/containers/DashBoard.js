@@ -11,31 +11,20 @@ import { NotifyContainer, NotifyService } from '../services/NotifyService';
 export default class DashBoard extends Component {
   constructor(props) {
     super(props);
-    this.getSlackUser();
-    this.getSlackUser2();
+    //this.getSlackUser();
+    this.getUsersAndDatePickers();
     this.state = { timeReportData: [] };
   }
 
-  getSlackUser2 = () => {
-    let slackUser = StorageService.getSlackUser();
-    if (this.props.isSignIn && slackUser == null) {
-      this.handleError(new Error('Slack user not found!'));
-      return;
-    }
-    return slackUser;
-  }
-
-  getSlackUser = () => {
-    let slackUser = StorageService.getSlackUser();
-    if (this.props.isSignIn && slackUser == null) {
-      console.error('Slack user not found!');
-      this.handleError(new Error('Slack user not found!'));
-      return;
-    }
-    StorageService.setAccessToken(slackUser.team_id);
-    this.getUsersAndDatePickers();
-    return slackUser;
-  }
+  // getSlackUser = () => {
+  //   let slackUser = StorageService.getSlackUser();
+  //   if (this.props.isSignIn && slackUser == null) {
+  //     console.error('Slack user not found!');
+  //     this.handleError(new Error('Slack user not found!'));
+  //     return;
+  //   }
+  //   return slackUser;
+  // }
 
   getUsersAndDatePickers = () => WebService.getUsers()
     .then(users => this.setState({ users: users }))
@@ -118,6 +107,15 @@ export default class DashBoard extends Component {
 
   validateInput = (input) => (input.type_id.length >0 && input.start.length >0 && input.hours.length >0);
   
+  getSlackUserFromSession = () => {
+    let slackUser = StorageService.getSlackUser();
+    if (this.props.isSignIn && slackUser == null) {
+      this.handleError(new Error('Slack user not found!'));
+      return;
+    }
+    return slackUser;
+  }
+
   render() {
     const marginStyle = { marginTop: '1rem' };
     
@@ -149,7 +147,7 @@ export default class DashBoard extends Component {
         </div>
 
         <TimeReportTable
-          slackUser = {this.getSlackUser2()}
+          slackUser = {this.getSlackUserFromSession()}
           data={this.state.timeReportData}
           showNewRow={this.state.showNewRow}
           onAdd={() => this.setState({ showNewRow: !this.state.showNewRow })}

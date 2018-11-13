@@ -26,7 +26,8 @@ export default class SignIn extends Component {
                         return;
                     }
                     StorageService.setSlackUser(slack_user);
-                        this.props.onSignIn(isSignIn);
+                    StorageService.setAccessToken(slack_user.team_id);
+                    this.props.onSignIn(isSignIn);
                 });
         });
     }
