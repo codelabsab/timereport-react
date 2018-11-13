@@ -18,7 +18,7 @@ export default class Navbar extends Component {
             <nav className="navbar navbar-light bg-dark">
                 <a className="navbar-brand" href="/">
                     <img src="https://codelabs.se/images/codelabs_white_code.svg" width="50" height="50" className="d-inline-block align-top"
-                        alt="" /> TimeReport
+                        alt="" /> <span style={{color: 'hotpink',marginTop:'50%', fontSize: 'x-large'}}>TimeReport</span>
                 </a>
                 {
                     this.props.isSignIn &&
