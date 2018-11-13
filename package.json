@@ -21,6 +21,7 @@
     "react-bootstrap": "^0.32.4",
     "react-bootstrap-daterangepicker": "^4.1.0",
     "react-dom": "^16.3.1",
+    "react-loading": "^2.0.3",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
     "react-toastify": "^4.4.0",

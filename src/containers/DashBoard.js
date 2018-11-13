@@ -7,10 +7,10 @@ import * as WebService from '../services/WebService';
 import * as StorageService from '../services/StorageService';
 import * as TimeReportBuildService from '../services/TimeReportBuildService';
 import { NotifyContainer, NotifyService } from '../services/NotifyService';
+import ReactLoading from "react-loading";
 
 export default class DashBoard extends Component {
   constructor(props) {
-    console.log('fire from ctor');
     super(props);
     this.getUsersAndDatePickers();
     this.state = { timeReportData: [] };
@@ -119,7 +119,7 @@ export default class DashBoard extends Component {
       return <Redirect to='/signin' />;
     }
     if (!this.state.users)
-      return (<div><NotifyContainer /></div>);
+      return (<div style={{ position: "absolute", top: "50%",left: "50%"}}><ReactLoading type="bars" color="#343a40" /><NotifyContainer /></div>);
     return (
       <div style={marginStyle}>
         <div className="input-group">
