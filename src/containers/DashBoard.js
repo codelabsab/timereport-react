@@ -11,21 +11,15 @@ import { NotifyContainer, NotifyService } from '../services/NotifyService';
 export default class DashBoard extends Component {
   constructor(props) {
     super(props);
-    //this.getSlackUser();
     this.getUsersAndDatePickers();
     this.state = { timeReportData: [] };
   }
-
-  // getSlackUser = () => {
-  //   let slackUser = StorageService.getSlackUser();
-  //   if (this.props.isSignIn && slackUser == null) {
-  //     console.error('Slack user not found!');
-  //     this.handleError(new Error('Slack user not found!'));
-  //     return;
-  //   }
-  //   return slackUser;
-  // }
-
+  componentDidMount(){
+    console.log('componentDidMount');
+  }
+  componentDidUpdate(prevProps) {
+    console.log('componentDidUpdate');
+  }
   getUsersAndDatePickers = () => WebService.getUsers()
     .then(users => this.setState({ users: users }))
     .catch(this.handleError);
