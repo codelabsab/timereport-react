@@ -8,6 +8,7 @@ import * as StorageService from '../services/StorageService';
 import * as TimeReportBuildService from '../services/TimeReportBuildService';
 import { NotifyContainer, NotifyService } from '../services/NotifyService';
 import ReactLoading from "react-loading";
+import * as TimeReportValidator from '../services/TimeReportDatavalidationService';
 
 export default class DashBoard extends Component {
   constructor(props) {
@@ -106,7 +107,7 @@ export default class DashBoard extends Component {
     }
   }
 
-  validateInput = (input) => (input.type_id.length > 0 && input.start.length > 0 && !isNaN(input.hours) && input.hours >0);
+  validateInput = (input) => (input.type_id.length > 0 && TimeReportValidator.validateDate(input.start) && TimeReportValidator.validateHour(input.hours));
 
   getSlackUserFromSession = () => {
     let slackUser = StorageService.getSlackUser();
