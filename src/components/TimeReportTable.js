@@ -80,7 +80,7 @@ export default class TimeReportTable extends Component {
                 {showNewRow && (
                     <tr>
                         <td>
-                            <input id="new_user_name" type="text" className="form-control" style={{ width: '10rem', background: 'floralwhite' }} name="user_name" defaultValue={this.props.slackUser.name}></input>
+                            <input id="new_user_name" type="text" className="form-control" style={{ width: '10rem' }} name="user_name" defaultValue={this.props.slackUser.name} disabled></input>
                         </td>
                         <td>
                             <input id="new_type_id" type="text" className="form-control" style={{ width: '10rem', background: 'floralwhite' }} name="type_id" ></input>

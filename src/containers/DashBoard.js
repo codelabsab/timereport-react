@@ -48,6 +48,7 @@ export default class DashBoard extends Component {
     if (action === 'ADD') {
       if(!this.validateInput(change)){
         this.handleError(new Error('Field should not be empty!'));
+        return;
       }
 
       let timeReportToCreate = {
