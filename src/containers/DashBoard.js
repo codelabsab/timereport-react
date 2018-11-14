@@ -47,7 +47,7 @@ export default class DashBoard extends Component {
   handleInTimeReportChange(change, action) {
     if (action === 'ADD') {
       if(!this.validateInput(change)){
-        this.handleError(new Error('Field should not be empty!'));
+        this.handleError(new Error('Invalid data!'));
         return;
       }
 
@@ -102,7 +102,7 @@ export default class DashBoard extends Component {
     }
   }
 
-  validateInput = (input) => (input.type_id.length >0 && input.start.length >0 && input.hours.length >0);
+  validateInput = (input) => (input.type_id.length >0 && input.start.length >0 && !isNaN(parseInt(input.hours)));
   
   getSlackUserFromSession = () => {
     let slackUser = StorageService.getSlackUser();
