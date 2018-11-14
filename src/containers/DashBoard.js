@@ -15,7 +15,7 @@ export default class DashBoard extends Component {
     this.getUsersAndDatePickers();
     this.state = { timeReportData: [] };
   }
-  componentDidMount(){
+  componentDidMount() {
     console.log('componentDidMount');
   }
   componentDidUpdate(prevProps) {
@@ -46,7 +46,7 @@ export default class DashBoard extends Component {
 
   handleInTimeReportChange(change, action) {
     if (action === 'ADD') {
-      if(!this.validateInput(change)){
+      if (!this.validateInput(change)) {
         this.handleError(new Error('Invalid data!'));
         return;
       }
@@ -56,7 +56,7 @@ export default class DashBoard extends Component {
         user_name: change.user_name,
         type_id: change.type_id,
         start: change.start,
-        hours: change.hours,
+        hours: parseInt(change.hours),
       };
       WebService.createTimeReport(timeReportToCreate)
         .then(newUser => {
@@ -85,12 +85,16 @@ export default class DashBoard extends Component {
     }
 
     if (action === 'EDIT_DONE') {
+      if (!this.validateInput(change)) {
+        this.handleError(new Error('Invalid data!'));
+        return;
+      }
       let timeReportMapped = this.state.timeReportData.map(t => {
         if (t.id === change.id) {
           t.setEditable(false);
           t.type_id = change.type_id;
           t.start = change.start;
-          t.hours = change.hours;
+          t.hours = parseInt(change.hours);
         }
         return t;
       });
@@ -102,8 +106,8 @@ export default class DashBoard extends Component {
     }
   }
 
-  validateInput = (input) => (input.type_id.length >0 && input.start.length >0 && !isNaN(parseInt(input.hours)));
-  
+  validateInput = (input) => (input.type_id.length > 0 && input.start.length > 0 && !isNaN(input.hours) && input.hours >0);
+
   getSlackUserFromSession = () => {
     let slackUser = StorageService.getSlackUser();
     if (this.props.isSignIn && slackUser == null) {
@@ -115,36 +119,36 @@ export default class DashBoard extends Component {
 
   render() {
     const marginStyle = { marginTop: '1rem' };
-    
+
     if (!this.props.isSignIn) {
       return <Redirect to='/signin' />;
     }
     if (!this.state.users)
-      return (<div style={{ position: "absolute", top: "50%",left: "50%"}}><ReactLoading type="bars" color="#343a40" /><NotifyContainer /></div>);
+      return (<div style={{ position: "absolute", top: "50%", left: "50%" }}><ReactLoading type="bars" color="#343a40" /><NotifyContainer /></div>);
     return (
       <div style={marginStyle}>
         <div className="input-group">
-        <div className="row">
-              <div className="col-sm-6 col-lg-5" style={marginStyle}>
-                <label className="input-group-text">
-                  <span className="oi oi-person"></span> &nbsp;&nbsp;Select User:
+          <div className="row">
+            <div className="col-sm-6 col-lg-5" style={marginStyle}>
+              <label className="input-group-text">
+                <span className="oi oi-person"></span> &nbsp;&nbsp;Select User:
                 </label>
-              </div>
+            </div>
 
-              <NameSelectionComponent
-                users={this.state.users}
-                onChangeUserName={(name) => this.handleInUserNameChange(name)} />
+            <NameSelectionComponent
+              users={this.state.users}
+              onChangeUserName={(name) => this.handleInUserNameChange(name)} />
 
-              <DatePicker onDateChange={(datePeriod) => this.handleInDateChange(datePeriod)}
-              />
-    
+            <DatePicker onDateChange={(datePeriod) => this.handleInDateChange(datePeriod)}
+            />
+
           </div>
 
           <div style={{ width: '35rem' }}></div>
         </div>
 
         <TimeReportTable
-          slackUser = {this.getSlackUserFromSession()}
+          slackUser={this.getSlackUserFromSession()}
           data={this.state.timeReportData}
           showNewRow={this.state.showNewRow}
           onAdd={() => this.setState({ showNewRow: !this.state.showNewRow })}
