@@ -61,8 +61,11 @@ export default class SignIn extends Component {
                     </div>
                     <div className="form-group row">
                         <div className="col-12 col-sm-8 offset-sm-2">
+                            <a className="btn-outline" href="/" style={{marginRight:'.5rem', color:'#343a40'}}>
+                                <span className="oi oi-chevron-left"></span>
+                            </a>
                             <button type="submit" className="btn btn-dark" onClick={(e) => this.doSignIn(e)}>Submit</button>
-                            <a className="btn btn-link" href="#/forgotpassword">Forgot Password</a>
+                            <a className="btn btn-link" href="#/forgotpassword" style={{color:'#343a40'}}>Forgot Password</a>
                         </div>
                     </div>
                 </form>
