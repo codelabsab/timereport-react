@@ -72,9 +72,11 @@ export default class TimeReportTable extends Component {
                 <tr>
                     <td>
                         <button onClick={(e) => this.handleUserAddRequest(e)}
-                            style={{ marginLeft: '.5rem' }} type="button" className="btn btn-clear">
-                            <span className="oi oi-plus"></span> &nbsp;&nbsp;Add New
-                            </button>
+                                style={{ marginLeft: '.5rem' }} 
+                                type="button" 
+                                className="btn btn-clear">
+                            <span className="oi oi-plus"></span>&nbsp;&nbsp;Add New
+                        </button>
                     </td>
                 </tr>
                 {showNewRow && (
@@ -92,7 +94,7 @@ export default class TimeReportTable extends Component {
                             <input id="new_hours" type="text" className="form-control" style={{ width: '3rem', background: 'floralwhite' }} name="hours" ></input>
                         </td>
                         <td>
-                            <button className="btn btn-sm btn-success" type="button" onClick={(e) => this.handleUserAddDone(e)}>
+                            <button onClick={(e) => this.handleUserAddDone(e)} className="btn btn-sm btn-success" type="button">
                                 <span className="oi oi-check"></span>
                             </button>
                         </td>
@@ -139,7 +141,7 @@ export default class TimeReportTable extends Component {
                                     </div>
                                 )}
                                 {row.editable && (
-                                    <button className="btn btn-sm btn-warning" type="button" onClick={(e) => this.handleUserEditDone(e, row)}>
+                                    <button onClick={(e) => this.handleUserEditDone(e, row)} className="btn btn-sm btn-warning" type="button" >
                                         <span className="oi oi-check"></span>
                                     </button>
                                 )}
