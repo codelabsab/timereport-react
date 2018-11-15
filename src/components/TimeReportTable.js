@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './../styles/TimeReportTable.css';
 import Media from "react-media";
 const moment = require('moment');
+const MAX_WIDTH_EXTRA_SMALL_DEVICE_PX = 599; 
 export default class TimeReportTable extends Component {
     constructor(props) {
         super(props);
@@ -62,9 +63,9 @@ export default class TimeReportTable extends Component {
             borderBottom: ".6rem solid rgb(27, 118, 196, .6)"
         };
         const noStyle= {};
-        // 
         const today = moment().format('YYYY-MM-DD');
-        let table = <Media query={{ maxWidth: 599 }}>
+
+        let table = <Media query={{ maxWidth: MAX_WIDTH_EXTRA_SMALL_DEVICE_PX }}>
             {mediaMatches =>
                 <table className="table">
                     <thead className="thead-light">
