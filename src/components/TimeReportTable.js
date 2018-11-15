@@ -2,55 +2,48 @@ import React, { Component } from 'react';
 import './../styles/TimeReportTable.css';
 import Media from "react-media";
 const moment = require('moment');
-const MAX_WIDTH_EXTRA_SMALL_DEVICE_PX = 599; 
+const MAX_WIDTH_EXTRA_SMALL_DEVICE_PX = 599;
 export default class TimeReportTable extends Component {
     constructor(props) {
         super(props);
     }
 
-    handleUserAddRequest(event) {
-        this.props.onAdd();
-    }
+    handleUserAddRequest = (event) => this.props.onAdd();
 
-    handleUserAddDone(event) {
+    handleUserAddDone = (event) => {
         let addedUser = this.getUserAddChange();
         console.log(addedUser);
         this.props.onChange(addedUser, 'ADD');
         this.props.onAdd();
     }
 
-    handleUserEditDone(event, user) {
-        let changedUser = this.getUserEditChange(user.id);
-        this.props.onChange(changedUser, 'EDIT_DONE');
-    }
+    handleUserEditDone = (event, user) =>
+        this.props.onChange(this.getUserEditChange(user.id), 'EDIT_DONE');
 
-    handleUserDelete(event, user) {
-        if (confirm('Are you sure to delete?')) {
+    handleUserDelete = (event, user) => {
+        if (confirm('Are you sure to delete?'))
             this.props.onChange(user, 'DELETE');
-        }
     }
 
-    handleUserEdit(event, user) {
-        this.props.onChange(user, 'EDIT');
-    }
+    handleUserEdit = (event, user) => this.props.onChange(user, 'EDIT');
 
-    getUserEditChange = (id) => {
-        return {
+    getUserEditChange = (id) =>
+        ({
             id: id,
             type_id: document.getElementById('type_id' + id).value,
             start: document.getElementById('start' + id).value,
             hours: document.getElementById('hours' + id).value,
-        }
-    }
-    getUserAddChange = () => {
-        return {
+        })
+
+    getUserAddChange = () =>
+        ({
             user_id: this.props.slackUser.id,
             user_name: this.props.slackUser.name,
             type_id: document.getElementById('new_type_id').value,
             start: document.getElementById('new_start').value,
             hours: document.getElementById('new_hours').value,
-        }
-    }
+        })
+
     render() {
         const data = this.props.data;
         const showNewRow = this.props.showNewRow;
@@ -62,7 +55,7 @@ export default class TimeReportTable extends Component {
             marginBottom: "3rem",
             borderBottom: ".6rem solid rgb(27, 118, 196, .6)"
         };
-        const noStyle= {};
+        const noStyle = {};
         const today = moment().format('YYYY-MM-DD');
 
         let table = <Media query={{ maxWidth: MAX_WIDTH_EXTRA_SMALL_DEVICE_PX }}>
@@ -70,15 +63,15 @@ export default class TimeReportTable extends Component {
                 <table className="table">
                     <thead className="thead-light">
                         <tr>
-                            <th>{mediaMatches? 'User':'User Name'}</th>
-                            <th>{mediaMatches? 'Type':'Type Id'}</th>
+                            <th>{mediaMatches ? 'User' : 'User Name'}</th>
+                            <th>{mediaMatches ? 'Type' : 'Type Id'}</th>
                             <th>Start</th>
                             <th>Hours</th>
                             <th></th>
                         </tr>
                     </thead>
 
-                    <tbody style={mediaMatches? bottomBorderStyle:noStyle}>
+                    <tbody style={mediaMatches ? bottomBorderStyle : noStyle}>
                         <tr>
                             <td>
                                 <button onClick={(e) => this.handleUserAddRequest(e)}
