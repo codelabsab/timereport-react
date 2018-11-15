@@ -16,13 +16,7 @@ export default class DashBoard extends Component {
     this.getUsersAndDatePickers();
     this.state = { timeReportData: [] };
   }
-  componentDidMount() {
-    console.log('componentDidMount');
-  }
-  componentDidUpdate(prevProps) {
-    console.log('componentDidUpdate');
-  }
-
+  
   getUsersAndDatePickers = () => WebService.getUsers()
     .then(users => this.setState({ users: users }))
     .catch(this.handleError);
