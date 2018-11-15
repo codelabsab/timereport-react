@@ -69,8 +69,8 @@ export default class TimeReportTable extends Component {
                 <table className="table">
                     <thead className="thead-light">
                         <tr>
-                            <th>User Name</th>
-                            <th>Type Id</th>
+                            <th>{mediaMatches? 'User':'User Name'}</th>
+                            <th>{mediaMatches? 'Type':'Type Id'}</th>
                             <th>Start</th>
                             <th>Hours</th>
                             <th></th>
