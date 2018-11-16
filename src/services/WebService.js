@@ -1,11 +1,12 @@
 import * as StorageService from '../services/StorageService';
+const SLACK_USER_LIST_URL = 'https://slack.com/api/users.list';
 
 export function getAccessToken(url) {
     return fetch(url).then(res => res.json()).then(handleErrors);
 }
 
 export function getSlackUsers() {
-    let url = 'https://slack.com/api/users.list?token=' + SLACK_ACCESS_TOKEN;
+    let url = SLACK_USER_LIST_URL+'?token=' + SLACK_ACCESS_TOKEN;
     return fetch(url)
         .then(res => res.json())
         .then(handleErrors);

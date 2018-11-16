@@ -157,10 +157,6 @@ export class Service {
                     return;
                 }
                 if (result.user != null) {
-                    console.log('result.user')
-                    console.log(result)
-                    console.log(result.user)
-                    console.log('result.user != null  ' + result.user != null)
                     self.user = result.user;
                     callback(false, true);
 
