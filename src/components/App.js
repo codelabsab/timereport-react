@@ -8,6 +8,7 @@ import DashBoard from "../containers/DashBoard";
 import NavBar from "../containers/NavBar";
 import { CognitoUserService } from '../services/CognitoUserService';
 import ResetPassword from '../containers/ResetPassword';
+import TestApp from '../components/TestApp';
 
 export default class App extends Component {
   constructor(props) {
@@ -71,6 +72,9 @@ export default class App extends Component {
               } />
 
             <Route path="/timereport" component={TimeReport} />
+
+
+            <Route path="/test" component={TestApp} />
           </div>
         </HashRouter>
       </div>

@@ -10,7 +10,7 @@ import {
 const initialState =
 {
     auth_token: null,
-    users: null,
+    users: [],
     time_report: null,
     user: null,
     date_time_period: null
