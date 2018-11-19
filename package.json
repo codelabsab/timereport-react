@@ -25,8 +25,10 @@
     "react-media": "^1.8.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
+    "react-thunk": "^1.0.0",
     "react-toastify": "^4.4.0",
-    "redux": "^4.0.0"
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
