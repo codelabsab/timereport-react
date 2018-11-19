@@ -4,7 +4,9 @@ import {
     SET_DATETIME_PERIOD,
     SET_TIME_REPORT,
     SET_USER,
-    SET_USERS
+    SET_USERS,
+    TOGGLE_SHOW_NEW_ROW,
+    SET_SLACK_USER
 } from '../constants/ActionTypes'
 
 const initialState =
@@ -13,7 +15,9 @@ const initialState =
     users: [],
     time_report: null,
     user: null,
-    date_time_period: null
+    date_time_period: null,
+    show_new_row: false,
+    slack_user: null
 };
 
 
@@ -41,6 +45,14 @@ function timeReport(state = initialState, action) {
                     start_date: action.start_date,
                     end_date: action.end_date
                 }
+            })
+        case TOGGLE_SHOW_NEW_ROW:
+            return Object.assign({}, state, {
+                show_new_row: !state.show_new_row
+            })
+        case SET_SLACK_USER:
+            return Object.assign({}, state, {
+                slack_user: action.slack_user
             })
         default:
             return state

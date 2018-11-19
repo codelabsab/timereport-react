@@ -6,3 +6,6 @@ export const SET_TIME_REPORT = 'SET_TIME_REPORT'
 
 export const SET_USER = 'SET_USER'
 export const SET_DATETIME_PERIOD = 'SET_DATETIME_PERIOD'
+
+export const TOGGLE_SHOW_NEW_ROW = 'TOGGLE_SHOW_NEW_ROW'
+export const SET_SLACK_USER = 'SET_SLACK_USER'
