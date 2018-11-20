@@ -1,27 +1,26 @@
 import {
-    SET_USER,
+    SELECT_USER,
     SET_USERS,
 
 } from '../constants/ActionTypes'
 
 const initialState =
 {
-    users: [],
-    user: null
+    allUsers: [],
+    selectedUser: null
 };
 
-export const getUsers = state => state.users
+export const getUsers = state => state.allUsers
 
 const users = (state = initialState, action) => {
-    console.log(action.user);
     switch (action.type) {
         case SET_USERS:
             return Object.assign({}, state, {
-                users: action.users
+                allUsers: action.allUsers
             })
-        case SET_USER:
+        case SELECT_USER:
             return Object.assign({}, state, {
-                user: action.user
+                selectedUser: action.selectedUser
             })
         
         default:

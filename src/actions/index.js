@@ -1,16 +1,17 @@
 import * as types from '../constants/ActionTypes'
 import * as WebService from '../services/WebService'
 
-export const selectUser = (user) => dispatch => dispatch(setUser(user))
+export const selectUser = (selectedUser) => dispatch => dispatch(setUser(selectedUser))
 
 export const getAllUsers = () => dispatch => WebService.getUsers()
-  .then(users => dispatch(setUsers(users)))
+  .then(allUsers => dispatch(setUsers(allUsers)))
 
+export const pickDate = (startDate, endDate) => dispatch => dispatch(setDateTimePeriod(startDate, endDate))
+ 
 
-
-const setUser = user => ({ type: types.SET_USER, user })
-const setUsers = users => ({ type: types.SET_USERS, users })
-
+const setUser = selectedUser => ({ type: types.SELECT_USER, selectedUser })
+const setUsers = allUsers => ({ type: types.SET_USERS, allUsers })
+const setDateTimePeriod = (start, end) => ({ type: types.SELECT_DATE_PERIOD, date:{start, end} })
 
 
 

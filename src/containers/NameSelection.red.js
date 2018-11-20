@@ -5,7 +5,7 @@ import { getUsers } from '../reducers'
 
 
 const mapStateToProps = (state) => ({
-    usersName: getUsers(state),
+    users: getUsers(state),
 })
 
 export default connect(mapStateToProps, { selectUser })(NameSelection)

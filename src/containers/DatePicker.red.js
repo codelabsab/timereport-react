@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-export default class DatePicker extends Component {
-    render(){
-        return <h1>DatePicker</h1>
-    }
-}
+import { connect } from 'react-redux'
+import DatePicker from '../components/DatePicker.red'
+import { pickDate } from '../actions'
+
+
+export default connect(null, { pickDate })(DatePicker)
