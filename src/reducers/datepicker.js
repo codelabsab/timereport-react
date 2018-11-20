@@ -6,8 +6,6 @@ const initialState =
     end: null
 };
 
-//export const getUsers = state => state.allUsers
-
 const datepicker = (state = initialState, action) => {
     switch (action.type) {
         case SELECT_DATE_PERIOD:

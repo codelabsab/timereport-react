@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import { createLogger } from 'redux-logger'
 import NameSelection from './NameSelection.red'
 import DatePicker from './DatePicker.red'
-import TimeReportSection from './TimeReportSection.red'
+import TimeReportContainer from './TimeReportContainer.red'
 import reducers from '../reducers';
 import { getAllUsers } from '../actions'
 
@@ -23,7 +23,7 @@ const DashBoard = () => (
     <div>
       <NameSelection />
       <DatePicker />
-      <TimeReportSection />
+      <TimeReportContainer />
     </div>
   </Provider>
 

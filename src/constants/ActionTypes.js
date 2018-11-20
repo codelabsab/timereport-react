@@ -1,6 +1,7 @@
 export const SELECT_USER = 'SELECT_USER'
 export const SET_USERS = 'SET_USERS'
 export const SELECT_DATE_PERIOD = 'SELECT_DATE_PERIOD'
+export const RECEIVE_TIMEREPORT = 'RECEIVE_TIMEREPORT'
 
 
 
