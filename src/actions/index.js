@@ -1,18 +1,20 @@
 import * as types from '../constants/ActionTypes'
-import * as WebService from '../services/WebService';
+import * as WebService from '../services/WebService'
 
-export const setUser = user => ({ type: types.SET_USER, user })
+export const selectUser = (user) => dispatch => dispatch(setUser(user))
+
+export const getAllUsers = () => dispatch => WebService.getUsers()
+  .then(users => dispatch(setUsers(users)))
+
+
+
+const setUser = user => ({ type: types.SET_USER, user })
 const setUsers = users => ({ type: types.SET_USERS, users })
 
 
-export const getAllUsers = () => dispatch => {
-    WebService.getUsers()
-    .then(users => {
-      dispatch(setUsers(users))
-    })
-  }
 
- 
+
+
 
 
 // export const setAuthToken = auth_token => ({ type: types.SET_AUTH_TOKEN, auth_token })

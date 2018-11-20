@@ -2,11 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 const ALL_USER = "all_users";
 
-const NameSelection = ({ usersName, setUser }) => (
+const NameSelection = ({ usersName, selectUser }) => (
     <select
         title="Pick User"
         className="custom-select"
-        onChange={userName => setUser(userName)}>
+        onChange={e => selectUser(e.target.value)}>
         <option key={ALL_USER} value={ALL_USER}>All Users</option>
         {
             usersName.map(userName =>
@@ -17,7 +17,7 @@ const NameSelection = ({ usersName, setUser }) => (
 )
 
 NameSelection.propTypes = {
-    setUser: PropTypes.func.isRequired,
+    selectUser: PropTypes.func.isRequired,
     usersName: PropTypes.array
 }
 

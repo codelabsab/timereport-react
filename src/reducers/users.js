@@ -13,6 +13,7 @@ const initialState =
 export const getUsers = state => state.users
 
 const users = (state = initialState, action) => {
+    console.log(action.user);
     switch (action.type) {
         case SET_USERS:
             return Object.assign({}, state, {
