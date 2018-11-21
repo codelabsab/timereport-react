@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { HashRouter, Route } from "react-router-dom";
-import TimeReport from '../containers/TimeReport';
+//import TimeReport from '../containers/TimeReport';
 import Home from '../containers/Home';
 import SignUp from "../containers/SignUp";
 import SignIn from "../containers/SignIn";
@@ -70,7 +70,7 @@ export default class App extends Component {
                   />
               } />
 
-            <Route path="/timereport" component={TimeReport} />
+            {/* <Route path="/timereport" component={TimeReport} /> */}
 
 
             <Route path="/test" component={TestApp} />
