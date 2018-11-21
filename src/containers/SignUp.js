@@ -6,7 +6,7 @@ import { NotifyContainer, NotifyService } from '../services/NotifyService';
 export default class SignUp extends Component {
     constructor(props) {
         super(props);
-    }    
+    }
     doConfirm = (event) => {
         event.preventDefault();
         CognitoUserService.confirmRegistration(this.verificationCode.value,
@@ -70,6 +70,9 @@ export default class SignUp extends Component {
                             </div>
                             <div className="form-group row">
                                 <div className="col-12 col-sm-8 offset-sm-2">
+                                    <a className="btn-outline" href="/" style={{ marginRight: '.5rem', color: '#343a40' }}>
+                                        <span className="oi oi-chevron-left"></span>
+                                    </a>
                                     <button type="submit" className="btn btn-dark" onClick={(e) => this.doRegister(e)}>Submit</button>
                                 </div>
                             </div>
@@ -124,12 +127,12 @@ export default class SignUp extends Component {
 
 
 
-                <div className="form-group row">
+                {/* <div className="form-group row">
                     <div className="col-12 col-sm-8 offset-sm-2">
                         <button className="btn btn-dark" onClick={() => console.log(CognitoUserService.getUser())}> Check Cognito User</button>
                     </div>
                 </div>
-                <br /> <br />
+                <br /> <br /> */}
                 <NotifyContainer />
             </div>
         );

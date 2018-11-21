@@ -70,12 +70,12 @@ export default class SignIn extends Component {
                     </div>
                 </form>
 
-                <br /> <br />
+                {/* <br /> <br />
                 <div className="form-group row">
                     <div className="col-12 col-sm-8 offset-sm-2">
                         <button className="btn btn-dark" onClick={() => console.log(CognitoUserService.getUser())}> Check Cognito User</button>
                     </div>
-                </div>
+                </div> */}
                 <NotifyContainer />
             </div>
         );
