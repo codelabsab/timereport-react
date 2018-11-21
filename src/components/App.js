@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, HashRouter, Route, Link } from "react-router-dom";
+import { HashRouter, Route } from "react-router-dom";
 import TimeReport from '../containers/TimeReport';
 import Home from '../containers/Home';
 import SignUp from "../containers/SignUp";
@@ -18,7 +18,6 @@ export default class App extends Component {
 
   componentDidMount = () => {
     CognitoUserService.getUserSession((error, isSignIn) => {
-      console.log(isSignIn);
       if (error)
         this.handleError(error);
       else
