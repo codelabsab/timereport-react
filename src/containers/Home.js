@@ -13,7 +13,7 @@ const Home = () => (
             <div className="card-body">
               <h3><span className="oi oi-timer"></span>Time Report</h3>
               <ul className="list-unstyled mt-3 mb-4">
-                <li ><a href={url} className="btn btn-outline-secondary btn-block">SignIn With Slack</a>&nbsp;</li>
+                {/* <li ><a href={url} className="btn btn-outline-secondary btn-block">SignIn With Slack</a>&nbsp;</li> */}
                 <li ><a href="#/signin" className="btn btn-outline-secondary btn-block">Regular SignIn</a>&nbsp;</li>
                 <li ><a href="#/signup" className="btn  btn-outline-secondary btn-block">SignUp</a></li>
               </ul>
