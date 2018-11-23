@@ -40,6 +40,11 @@ export default class DashBoard extends Component {
   }
 
   handleInTimeReportChange(change, action) {
+    if (!this.isAllowedOperation(change, action)) {
+      this.handleError(new Error('Permission Denied, user not same!'));
+      return;
+    }
+
     if (action === 'ADD') {
       if (!this.validateInput(change)) {
         this.handleError(new Error('Invalid data!'));
@@ -102,6 +107,18 @@ export default class DashBoard extends Component {
   }
 
   validateInput = (input) => (input.type_id.length > 0 && TimeReportValidator.validateDate(input.start) && TimeReportValidator.validateHour(input.hours));
+
+
+
+  isAllowedOperation = (change, action) => {
+    let isAddOrDEL = action === 'EDIT' || action === 'DELETE';
+    if(!isAddOrDEL)
+      return true;
+    let slackUser = StorageService.getSlackUser();
+    let isRequestForSameUser = slackUser.name === change.user_name;
+    return isRequestForSameUser;
+  }
+
 
   getSlackUserFromSession = () => {
     let slackUser = StorageService.getSlackUser();
