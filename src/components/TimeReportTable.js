@@ -12,7 +12,6 @@ export default class TimeReportTable extends Component {
 
     handleUserAddDone = (event) => {
         let addedUser = this.getUserAddChange();
-        console.log(addedUser);
         this.props.onChange(addedUser, 'ADD');
         this.props.onAdd();
     }
