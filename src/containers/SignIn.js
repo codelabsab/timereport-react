@@ -9,40 +9,46 @@ export default class SignIn extends Component {
     constructor(props) {
         super(props);
     }
+
     doSignIn = (event) => {
         event.preventDefault();
         CognitoUserService.authenticateUser({
             username: this.username.value,
             password: this.password.value
-        }, (error, email) => {
-            let emailFound = !!email;
-            if(!emailFound){
-                this.handleError(error);
-                return;
-            }
-            
+        }, this.signInCallback);
+    }
+
+    signInCallback = (error, email) => {
+        let emailFound = !!email;
+        if (!emailFound)
+            this.handleError(error);
+        else
             SlackService.userLookupByEmail(email)
                 .then(slack_user => {
                     if (slack_user == null) {
-                        let payload = CognitoUserService.getUser().signInUserSession.idToken.payload;
-                        let email = payload['email'];
-                        let domain = email.replace(/.*@/, "");
-                        let non_slack_user = {
-                            email: email,
-                            id: null,
-                            name: payload['cognito:username'],
-                            team_id: domain
-                        };
-
-                        StorageService.setSlackUser(non_slack_user);
-                        StorageService.setAccessToken(non_slack_user.team_id);
+                        this.storeUserDataIntoSession(this.getNonSlackUser())
                         return;
                     }
-                    StorageService.setSlackUser(slack_user);
-                    StorageService.setAccessToken(slack_user.team_id);
+                    this.storeUserDataIntoSession(slack_user);
                     this.props.onSignIn(emailFound);
                 });
-        });
+    }
+    getNonSlackUser = () => {
+        let payload = CognitoUserService
+            .getUser()
+            .signInUserSession.idToken.payload;
+        let email = payload['email'];
+        let domain = email.replace(/.*@/, "");
+        return {
+            email: email,
+            id: null,
+            name: payload['cognito:username'],
+            team_id: domain
+        };
+    }
+    storeUserDataIntoSession = (user) => {
+        StorageService.setSlackUser(user);
+        StorageService.setAccessToken(user.team_id);
     }
 
     handleError = (e) => {
