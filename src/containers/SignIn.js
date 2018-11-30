@@ -15,10 +15,12 @@ export default class SignIn extends Component {
             username: this.username.value,
             password: this.password.value
         }, (error, email) => {
-            //if (error)
-            //this.handleError(error);
-            //else
-            let isSignIn = !!email;
+            let emailFound = !!email;
+            if(!emailFound){
+                this.handleError(error);
+                return;
+            }
+            
             SlackService.userLookupByEmail(email)
                 .then(slack_user => {
                     if (slack_user == null) {
@@ -34,13 +36,11 @@ export default class SignIn extends Component {
 
                         StorageService.setSlackUser(non_slack_user);
                         StorageService.setAccessToken(non_slack_user.team_id);
-
-                        //this.handleError(new Error('Email is not found in slack!'));
                         return;
                     }
                     StorageService.setSlackUser(slack_user);
                     StorageService.setAccessToken(slack_user.team_id);
-                    this.props.onSignIn(isSignIn);
+                    this.props.onSignIn(emailFound);
                 });
         });
     }
@@ -90,6 +90,7 @@ export default class SignIn extends Component {
                     </div>
                 </div>
                 <NotifyContainer /> */}
+                <NotifyContainer />
             </div>
         );
     }
