@@ -90,6 +90,7 @@ export default class DashBoard extends Component {
         this.handleError(new Error('Invalid data!'));
         return;
       }
+      change.end = change.start;
       let timeReportMapped = this.state.timeReportData.map(t => {
         if (t.id === change.id) {
           t.setEditable(false);
