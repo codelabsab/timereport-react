@@ -9,6 +9,7 @@ import * as TimeReportBuildService from '../services/TimeReportBuildService';
 import { NotifyContainer, NotifyService } from '../services/NotifyService';
 import ReactLoading from "react-loading";
 import * as TimeReportValidator from '../services/TimeReportDatavalidationService';
+import * as TimeReportAction from '../constants/ActionTypes';
 
 export default class DashBoard extends Component {
   constructor(props) {
@@ -45,7 +46,7 @@ export default class DashBoard extends Component {
       return;
     }
 
-    if (action === 'ADD') {
+    if (action === TimeReportAction.ADD) {
       if (!this.validateInput(change)) {
         this.handleError(new Error('Invalid data!'));
         return;
@@ -67,7 +68,7 @@ export default class DashBoard extends Component {
         .catch(this.handleError);
     }
 
-    if (action === 'DELETE') {
+    if (action === TimeReportAction.DELETE) {
       let timeReportDataExceptDeleted = this.state.timeReportData.filter(t => t.id !== change.id);
       WebService.deleteTimeReport(change)
         .then(response => this.setState({ timeReportData: timeReportDataExceptDeleted }))
@@ -75,7 +76,7 @@ export default class DashBoard extends Component {
 
     }
 
-    if (action === 'EDIT') {
+    if (action === TimeReportAction.EDIT) {
       let timeReportMapped = this.state.timeReportData.map(t => {
         if (t.id === change.id)
           t.setEditable(true);
@@ -84,7 +85,7 @@ export default class DashBoard extends Component {
       this.setState({ timeReportData: timeReportMapped });
     }
 
-    if (action === 'EDIT_DONE') {
+    if (action === TimeReportAction.EDIT_DONE) {
       if (!this.validateInput(change)) {
         this.handleError(new Error('Invalid data!'));
         return;
@@ -109,7 +110,7 @@ export default class DashBoard extends Component {
   validateInput = (input) => (input.type_id.length > 0 && TimeReportValidator.validateDate(input.start) && TimeReportValidator.validateHour(input.hours));
 
   isAllowedOperation = (change, action) => {
-    let isAddOrDEL = action === 'EDIT' || action === 'DELETE';
+    let isAddOrDEL = action === TimeReportAction.EDIT || action === TimeReportAction.DELETE;
     if(!isAddOrDEL)
       return true;
     let slackUser = StorageService.getSlackUser();

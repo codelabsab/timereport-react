@@ -3,6 +3,8 @@ import './../styles/TimeReportTable.css';
 import Media from "react-media";
 const moment = require('moment');
 const MAX_WIDTH_EXTRA_SMALL_DEVICE_PX = 599;
+import * as TimeReportAction from '../constants/ActionTypes';
+
 export default class TimeReportTable extends Component {
     constructor(props) {
         super(props);
@@ -12,19 +14,19 @@ export default class TimeReportTable extends Component {
 
     handleUserAddDone = (event) => {
         let addedUser = this.getUserAddChange();
-        this.props.onChange(addedUser, 'ADD');
+        this.props.onChange(addedUser, TimeReportAction.ADD);
         this.props.onAdd();
     }
 
     handleUserEditDone = (event, user) =>
-        this.props.onChange(this.getUserEditChange(user.id), 'EDIT_DONE');
+        this.props.onChange(this.getUserEditChange(user.id), TimeReportAction.EDIT_DONE);
 
     handleUserDelete = (event, user) => {
         if (confirm('Are you sure to delete?'))
-            this.props.onChange(user, 'DELETE');
+            this.props.onChange(user, TimeReportAction.DELETE);
     }
 
-    handleUserEdit = (event, user) => this.props.onChange(user, 'EDIT');
+    handleUserEdit = (event, user) => this.props.onChange(user, TimeReportAction.EDIT);
 
     getUserEditChange = (id) =>
         ({
