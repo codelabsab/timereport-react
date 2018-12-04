@@ -10,16 +10,12 @@ export default class NameSelectionComponent extends Component {
   }
   render() {
     const usersName = this.props.users;
-    const marginStyle = {
-      //marginRight: '.5rem'
-    };
-    const marginStyle2 = { marginTop: '1rem' };
+    const marginStyle = { marginTop: '1rem' };
     return (
-      <div className="col-sm-6 col-lg-5" style={marginStyle2}> 
+      <div className="col-sm-6 col-lg-5" style={marginStyle}> 
           <select
             title="Pick User"
             className="custom-select"
-            style={marginStyle}
             onChange={e => this.handleUserNameChange(e)}>
             <option key={ALL_USER} value={ALL_USER}>All Users</option>
             {
