@@ -4,6 +4,7 @@ import Home from '../containers/Home';
 import SignUp from "../containers/SignUp";
 import SignIn from "../containers/SignIn";
 import DashBoard from "../containers/DashBoard";
+import DashBoardV2 from "../containers/DashBoardV2";
 import NavBar from "../containers/NavBar";
 import { CognitoUserService } from '../services/CognitoUserService';
 import ResetPassword from '../containers/ResetPassword';
@@ -63,6 +64,15 @@ export default class App extends Component {
               render={
                 () =>
                   <DashBoard
+                    isSignIn={this.state.isSignIn}
+                    onSignOut={(isSignOut) => this.handleInUserSignOut(isSignOut)}
+                  />
+              } />
+
+              <Route exact path="/dashboardv2"
+              render={
+                () =>
+                  <DashBoardV2
                     isSignIn={this.state.isSignIn}
                     onSignOut={(isSignOut) => this.handleInUserSignOut(isSignOut)}
                   />

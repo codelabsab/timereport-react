@@ -20,8 +20,17 @@ export function getUsers() {
         .then(handleErrors2);
 }
 
+export function getUsersV2() {
+    let urlSegemntAccessToken = '?access_token=' + StorageService.getAccessToken();
+    console.log(urlSegemntAccessToken);
+    return fetch(API_ROOT + '/api/v2/users' + urlSegemntAccessToken)
+        .then(res => res.json())
+        .then(handleErrors2);
+}
+
 export function getTimeReport(query) {
     let urlSegemntAccessToken = '?access_token=' + StorageService.getAccessToken();
+    //let urlSegmentApi = '/api/v2/timereport/user_id? startDate=20181205 & endDate=20181206';
     return fetch(API_ROOT + '/api/timereport' + urlSegemntAccessToken, {
         method: 'POST',
         body: JSON.stringify(query),
@@ -33,6 +42,7 @@ export function getTimeReport(query) {
 
 export function createTimeReport(query) {
     let urlSegemntAccessToken = '?access_token=' + StorageService.getAccessToken();
+    //let urlSegmentApi = '/api/v2/timereport';
     return fetch(API_ROOT + '/api/timereport2' + urlSegemntAccessToken, {
         method: 'POST',
         body: JSON.stringify(query),
@@ -44,6 +54,7 @@ export function createTimeReport(query) {
 
 export function updateTimeReport(query) {
     let urlSegemntAccessToken = '?access_token=' + StorageService.getAccessToken();
+    //let urlSegmentApi = '/api/v2/timereport/'; 
     return fetch(API_ROOT + '/api/timereport2/' + query.id + urlSegemntAccessToken, {
         method: 'PUT',
         body: JSON.stringify(query),
@@ -55,6 +66,7 @@ export function updateTimeReport(query) {
 
 export function deleteTimeReport(query) {
     let urlSegemntAccessToken = '?access_token=' + StorageService.getAccessToken();
+    //let urlSegmentApi = '/api/v2/timereport/'; 
     return fetch(API_ROOT + '/api/timereport2/' + query.id + urlSegemntAccessToken, {
         method: 'DELETE'
     })
