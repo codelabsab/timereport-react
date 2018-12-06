@@ -41,9 +41,9 @@ export function getTimeReport(query) {
 }
 
 export function getTimeReportV2(query) {
-    let urlSegemntAccessToken = '& access_token=' + StorageService.getAccessToken();
-    let urlSegmentApi = '/api/v2/timereport/'+query.userName+'? startDate='+query.startDate+' & endDate='+query.endDate;
-    return fetch(API_ROOT + urlSegmentApi + urlSegemntAccessToken, {
+    let urlSegemntAccessToken = '?access_token=' + StorageService.getAccessToken();
+    let urlSegmentApi = '/api/v2/timereport/'+query.userName+'/'+urlSegemntAccessToken+'&startDate='+query.startDate+'&endDate='+query.endDate;
+    return fetch(API_ROOT + urlSegmentApi , {
         method: 'GET',
         //body: JSON.stringify(query),
         headers: { 'Content-Type': 'application/json' }
