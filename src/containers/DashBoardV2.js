@@ -38,12 +38,14 @@ export default class DashBoardV2 extends Component {
       endDate: datePeriod.endDate,
       userName: this.state.user
     };
-    WebService.getTimeReport(query)
+    WebService.getTimeReportV2(query)
       .then(data => this.setState({ timeReportData: TimeReportBuildService.buildTimeReportData(data) }))
       .catch(this.handleError);
   }
 
   handleInTimeReportChange(change, action) {
+
+
     if (!this.isAllowedOperation(change, action)) {
       this.handleError(new Error('Permission Denied, user not same!'));
       return;
@@ -58,7 +60,7 @@ export default class DashBoardV2 extends Component {
       let timeReportToCreate = {
         user_id: change.user_id,
         user_name: change.user_name,
-        reason: change.reason_id,
+        reason: change.reason,
         event_date: change.event_date,
         hours: parseInt(change.hours),
       };
@@ -97,7 +99,7 @@ export default class DashBoardV2 extends Component {
       let timeReportMapped = this.state.timeReportData.map(t => {
         if (t.id === change.id) {
           t.setEditable(false);
-          t.reason = change.reason_id;
+          t.reason = change.reason;
           t.event_date = change.event_date;
           t.hours = parseInt(change.hours);
         }
@@ -111,7 +113,7 @@ export default class DashBoardV2 extends Component {
     }
   }
 
-  validateInput = (input) => (input.reason_id.length > 0 && TimeReportValidator.validateDate(input.event_date) && TimeReportValidator.validateHour(input.hours));
+  validateInput = (input) => (input.reason.length > 0 && TimeReportValidator.validateDate(input.event_date) && TimeReportValidator.validateHour(input.hours));
 
   isAllowedOperation = (change, action) => {
     let isAddOrDEL = action === TimeReportAction.EDIT || action === TimeReportAction.DELETE;

@@ -13,6 +13,7 @@ export default class TimeReportTable extends Component {
     handleUserAddRequest = (event) => this.props.onAdd();
 
     handleUserAddDone = (event) => {
+        console.log(this.getUserAddChange())
         let addedUser = this.getUserAddChange();
         this.props.onChange(addedUser, TimeReportAction.ADD);
         this.props.onAdd();
@@ -65,7 +66,7 @@ export default class TimeReportTable extends Component {
                     <thead className="thead-light">
                         <tr>
                             <th>{mediaMatches ? 'User' : 'User Name'}</th>
-                            <th>{mediaMatches ? 'Type' : 'Type Id'}</th>
+                            <th>Reason</th>
                             <th>Start</th>
                             <th>Hours</th>
                             <th></th>
@@ -111,7 +112,7 @@ export default class TimeReportTable extends Component {
                                     <td>{row.user_name}</td>
                                     <td>
                                         {!row.editable && (
-                                            <span className="type">{row.reason_id}</span>
+                                            <span className="type">{row.reason}</span>
                                         )}
                                         {row.editable && (
                                             <input id={'reason_id' + row.id} type="text" className="form-control" style={{ width: '10rem', background: 'floralwhite' }} name="reason_id" defaultValue={row.reason}></input>

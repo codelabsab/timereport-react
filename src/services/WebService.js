@@ -40,6 +40,18 @@ export function getTimeReport(query) {
         .then(handleErrors2);
 }
 
+export function getTimeReportV2(query) {
+    let urlSegemntAccessToken = '& access_token=' + StorageService.getAccessToken();
+    let urlSegmentApi = '/api/v2/timereport/'+query.userName+'? startDate='+query.startDate+' & endDate='+query.endDate;
+    return fetch(API_ROOT + urlSegmentApi + urlSegemntAccessToken, {
+        method: 'GET',
+        //body: JSON.stringify(query),
+        headers: { 'Content-Type': 'application/json' }
+    })
+        .then(res => res.json())
+        .then(handleErrors2);
+}
+
 export function createTimeReport(query) {
     let urlSegemntAccessToken = '?access_token=' + StorageService.getAccessToken();
     //let urlSegmentApi = '/api/v2/timereport';
