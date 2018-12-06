@@ -54,8 +54,18 @@ export function getTimeReportV2(query) {
 
 export function createTimeReport(query) {
     let urlSegemntAccessToken = '?access_token=' + StorageService.getAccessToken();
-    //let urlSegmentApi = '/api/v2/timereport';
     return fetch(API_ROOT + '/api/timereport2' + urlSegemntAccessToken, {
+        method: 'POST',
+        body: JSON.stringify(query),
+        headers: { 'Content-Type': 'application/json' }
+    })
+        .then(res => res.json())
+        .then(handleErrors2);
+}
+
+export function createTimeReportV2(query) {
+    let urlSegemntAccessToken = '?access_token=' + StorageService.getAccessToken();
+    return fetch(API_ROOT + '/api/v2/timereport' + urlSegemntAccessToken, {
         method: 'POST',
         body: JSON.stringify(query),
         headers: { 'Content-Type': 'application/json' }

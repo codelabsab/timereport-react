@@ -64,7 +64,7 @@ export default class DashBoardV2 extends Component {
         event_date: change.event_date,
         hours: parseInt(change.hours),
       };
-      WebService.createTimeReport(timeReportToCreate)
+      WebService.createTimeReportV2(timeReportToCreate)
         .then(newUser => {
           let newUserBuild = TimeReportBuildService.buildTimeReportSingle(newUser);
           let timeReportDataWithAddedUser = this.state.timeReportData.concat([newUserBuild]);
