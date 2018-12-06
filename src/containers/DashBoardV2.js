@@ -106,7 +106,7 @@ export default class DashBoardV2 extends Component {
         return t;
       });
 
-      WebService.updateTimeReport(change)
+      WebService.updateTimeReportV2(change)
         .then(response => this.setState({ timeReportData: timeReportMapped }))
         .catch(this.handleError);
 

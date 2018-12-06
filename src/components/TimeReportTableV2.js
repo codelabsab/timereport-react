@@ -115,12 +115,12 @@ export default class TimeReportTable extends Component {
                                             <span className="type">{row.reason}</span>
                                         )}
                                         {row.editable && (
-                                            <input id={'reason_id' + row.id} type="text" className="form-control" style={{ width: '10rem', background: 'floralwhite' }} name="reason_id" defaultValue={row.reason}></input>
+                                            <input id={'reason' + row.id} type="text" className="form-control" style={{ width: '10rem', background: 'floralwhite' }} name="reason_id" defaultValue={row.reason}></input>
                                         )}
                                     </td>
                                     <td>
                                         {!row.editable && (
-                                            <div style={{ width: '7rem' }} >{row.start}</div>
+                                            <div style={{ width: '7rem' }} >{row.event_date}</div>
                                         )}
                                         {row.editable && (
                                             <input id={'event_date' + row.id} type="text" className="form-control" style={{ width: '7rem', background: 'floralwhite' }} name="event_date" defaultValue={row.event_date}></input>
