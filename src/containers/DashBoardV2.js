@@ -75,7 +75,7 @@ export default class DashBoardV2 extends Component {
 
     if (action === TimeReportAction.DELETE) {
       let timeReportDataExceptDeleted = this.state.timeReportData.filter(t => t.id !== change.id);
-      WebService.deleteTimeReport(change)
+      WebService.deleteTimeReportV2(change)
         .then(response => this.setState({ timeReportData: timeReportDataExceptDeleted }))
         .catch(this.handleError);
 
