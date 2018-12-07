@@ -4,13 +4,17 @@ import { Redirect } from "react-router-dom";
 import { NotifyContainer, NotifyService } from '../services/NotifyService';
 import * as SlackService from '../services/SlackService';
 import * as StorageService from '../services/StorageService';
+import ReactLoading from "react-loading";
 
 export default class SignIn extends Component {
+
     constructor(props) {
         super(props);
+        this.state = { isLoading: false };
     }
 
     doSignIn = (event) => {
+        this.setState({ isLoading: true });
         event.preventDefault();
         CognitoUserService.authenticateUser({
             username: this.username.value,
@@ -32,6 +36,7 @@ export default class SignIn extends Component {
                     this.storeUserDataIntoSession(slack_user);
                     this.props.onSignIn(emailFound);
                 });
+        this.setState({ isLoading: false });
     }
     getNonSlackUser = () => {
         let payload = CognitoUserService
@@ -85,17 +90,10 @@ export default class SignIn extends Component {
                             </a>
                             <button type="submit" className="btn btn-dark" onClick={(e) => this.doSignIn(e)}>Submit</button>
                             <a className="btn btn-link" href="#/forgotpassword" style={{ color: '#343a40' }}>Forgot Password</a>
+                            {this.state.isLoading && (<ReactLoading type="bars" color="#343a40" />)}
                         </div>
                     </div>
                 </form>
-
-                {/* <br /> <br />
-                <div className="form-group row">
-                    <div className="col-12 col-sm-8 offset-sm-2">
-                        <button className="btn btn-dark" onClick={() => console.log(CognitoUserService.getUser().signInUserSession.idToken.payload)}> Check Cognito User</button>
-                    </div>
-                </div>
-                <NotifyContainer /> */}
                 <NotifyContainer />
             </div>
         );
