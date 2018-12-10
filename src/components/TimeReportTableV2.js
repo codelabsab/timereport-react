@@ -67,7 +67,7 @@ export default class TimeReportTable extends Component {
                         <tr>
                             <th>{mediaMatches ? 'User' : 'User Name'}</th>
                             <th>Reason</th>
-                            <th>Start</th>
+                            <th>Date</th>
                             <th>Hours</th>
                             <th></th>
                         </tr>
