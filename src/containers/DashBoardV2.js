@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
-import NameSelectionComponent from '../components/NameSelectionComponent';
+import NameSelectionComponent from '../components/NameSelectionComponentV2';
 import DatePicker from '../components/DatePicker';
 import TimeReportTable from '../components/TimeReportTableV2';
 import * as WebService from '../services/WebService';
@@ -21,8 +21,16 @@ export default class DashBoardV2 extends Component {
 
   getUsersAndDatePickers = () => WebService.getUsersV2()
     .then(users => {
-      let unqueUsers = [...new Set(users.map(u => u.user_name))];
-      this.setState({ users: unqueUsers })
+      let uniqueUsers = [];
+      users.forEach((u) => {
+        let found = uniqueUsers.find(un => un.user_id == u.user_id);
+        if (!found)
+        uniqueUsers.push({
+            user_id: u.user_id,
+            user_name: u.user_name
+          });
+      });
+      this.setState({ users: uniqueUsers })
     })
     .catch(this.handleError);
 
