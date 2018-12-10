@@ -10,6 +10,7 @@ import { NotifyContainer, NotifyService } from '../services/NotifyService';
 import ReactLoading from "react-loading";
 import * as TimeReportValidator from '../services/TimeReportDatavalidationService';
 import * as TimeReportAction from '../constants/ActionTypes';
+import moment from 'moment';
 
 export default class DashBoardV2 extends Component {
   constructor(props) {
@@ -33,11 +34,13 @@ export default class DashBoardV2 extends Component {
   handleInUserNameChange = (userName) => this.setState({ user: userName });
 
   handleInDateChange(datePeriod) {
+
     let query = {
-      startDate: datePeriod.startDate,
-      endDate: datePeriod.endDate,
+      startDate: moment(datePeriod.startDate).format("YYYY-MM-DD"),
+      endDate: moment(datePeriod.endDate).format("YYYY-MM-DD"),
       userName: this.state.user
     };
+
     WebService.getTimeReportV2(query)
       .then(data => this.setState({ timeReportData: TimeReportBuildService.buildTimeReportData(data) }))
       .catch(this.handleError);
