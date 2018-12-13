@@ -8,11 +8,14 @@ import DashBoardV2 from "../containers/DashBoardV2";
 import NavBar from "../containers/NavBar";
 import { CognitoUserService } from '../services/CognitoUserService';
 import ResetPassword from '../containers/ResetPassword';
-
+const v2 = 'v2';
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = { isSignIn: false, isSignUp: false, isSignUpVerified: false };
+    console.log('use version: ' + VERSION);
+    // based on version dashboard switching
+    this.DashBoard = VERSION == v2 ? DashBoardV2 : DashBoard;
   }
 
   componentDidMount = () => {
@@ -63,16 +66,7 @@ export default class App extends Component {
             <Route exact path="/dashboard"
               render={
                 () =>
-                  <DashBoard
-                    isSignIn={this.state.isSignIn}
-                    onSignOut={(isSignOut) => this.handleInUserSignOut(isSignOut)}
-                  />
-              } />
-
-              <Route exact path="/dashboardv2"
-              render={
-                () =>
-                  <DashBoardV2
+                  < this.DashBoard
                     isSignIn={this.state.isSignIn}
                     onSignOut={(isSignOut) => this.handleInUserSignOut(isSignOut)}
                   />

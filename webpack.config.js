@@ -47,7 +47,8 @@ module.exports = {
       SLACK_ROOT_API_URL: process.env.SLACK_ROOT_API_URL,
       SLACK_ACCESS_TOKEN: process.env.SLACK_ACCESS_TOKEN,
       UserPoolId: process.env.UserPoolId,
-      ClientId: process.env.ClientId
+      ClientId: process.env.ClientId,
+      VERSION: process.env.VERSION
     }),
     new CleanWebpackPlugin([outputDirectory]),
     new HtmlWebpackPlugin({
