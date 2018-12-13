@@ -26,3 +26,10 @@ But if you are running it locally then you can just execute
 ```bash
 npm start
 ```
+
+## Features
+Right now after login it redirects do your_root_url/#/dashboard which uses old model and uses only one collection: users 
+
+But new feature that uses 2 collections: events and users, 
+will available if you change the url to: 
+your_root_url/#/dashboardv2
