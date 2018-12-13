@@ -28,8 +28,9 @@ npm start
 ```
 
 ## Features
-Right now after login it redirects do your_root_url/#/dashboard which uses old model and uses only one collection: users 
+After login it redirects to dashboard which by default uses old api (one collection: users)
 
-But new feature that uses 2 collections: events and users, 
-will available if you change the url to: 
-your_root_url/#/dashboardv2
+But the new feature that uses api v2 (2 collections : events and users), will available if you set special environment varibale:
+```sh
+VERSION = v2
+```
