@@ -1,28 +1,28 @@
-# Time Report Documentation
+Time Report React Frontend
+==============================================
 
-
-## set redirect url for slack
-Log in to api.slack.com/apps
-In Oauth & Permissions add redirect url like:
-```sh
-yourdomain.com/#/requestaccesstoken
-```
-And copy client_id & client_secret you need this to define environment variable(see below)
-
-## Define environment variable
-
+Before starting the project set the environment variables:
 ```sh
 API_ROOT = yourdomain.com
-SLACK_CLIENT_ID=slack_client_id
-SLACK_CLIENT_SECRET=slack_client_secret
-SLACK_REDIRECT_URI=yourdomain.com/#/requestaccesstoken 
-SLACK_ROOT_API_URL=https://<yourworkspace>.slack.com
+SLACK_CLIENT_ID = slack_client_id
+SLACK_CLIENT_SECRET = slack_client_secret
+SLACK_REDIRECT_URI = yourdomain.com/#/requestaccesstoken 
+SLACK_ROOT_API_URL = https://<yourworkspace>.slack.com
+UserPoolId = aws_cognito_userpool_Id
+ClientId = aws_cognito_client_Id
 ```
  
 ## Quick Start
+In Production (using aws hosting,etc.)
 Buid first:
 ```bash
 # Build for production
 npm run build
 ```
-then host all contents from dist folder.
+after building you will able to see contents in dist folder.
+then host all contents from dist folder to go live.
+
+But if you are running it locally then you can just execute 
+```bash
+npm start
+```
