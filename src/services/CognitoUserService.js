@@ -14,24 +14,14 @@ export class Service {
     }
     getUserSession = (callback) => {
         if (this.user != null) {
-            console.log('User not null');
             this.user.getSession(function (err, session) {
                 if (err) {
-                    console.log(err);
                     if (callback != null)
                         callback(err, false);
                     return;
                 }
                 if (callback != null)
                     callback(false, true);
-                console.log(session);
-                // ----- get email address ?????
-                //let email = this.email.value
-                //WebService.userlookupbyemail(email)
-                //.then((response) => StorageService.setSlackUser(response));
-
-
-                console.log('session validity: ' + session.isValid());
             });
         }
         else {
@@ -69,18 +59,15 @@ export class Service {
     }
     getUser = () => this.user;
     signOut = (callback) => {
-        console.log('signOut', this.user != null);
         let that = this;
         if (this.user != null) {
             this.user.globalSignOut({
                 onSuccess: function (result) {
-                    console.log('signput result', result);
                     StorageService.resetSlackUser();
                     that.user = null;
                     callback(false, true);
                 },
                 onFailure: function (err) {
-                    console.log(err);
                     callback(err, false);
                 }
             });
@@ -92,11 +79,9 @@ export class Service {
     confirmRegistration = (confirmationCode, callback) =>
         this.user.confirmRegistration(confirmationCode, true, function (err, result) {
             if (err) {
-                console.log(err);
                 callback(err, false);
                 return;
             }
-            console.log('User Confimed', result);
             callback(false, true);;
         });
 
@@ -148,8 +133,6 @@ export class Service {
             attributeList,
             null,
             function (err, result) {
-                console.log('error result')
-                console.log(err, result)
                 if (err) {
                     if (err.code && err.code == 'UnknownError')
                         return;
