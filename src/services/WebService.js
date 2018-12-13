@@ -14,7 +14,6 @@ export function getSlackUsers() {
 
 export function getUsers() {
     let urlSegemntAccessToken = '?access_token=' + StorageService.getAccessToken();
-    console.log(urlSegemntAccessToken);
     return fetch(API_ROOT + '/api/users' + urlSegemntAccessToken)
         .then(res => res.json())
         .then(handleErrors2);
@@ -22,7 +21,6 @@ export function getUsers() {
 
 export function getUsersV2() {
     let urlSegemntAccessToken = '?access_token=' + StorageService.getAccessToken();
-    console.log(urlSegemntAccessToken);
     return fetch(API_ROOT + '/api/v2/users' + urlSegemntAccessToken)
         .then(res => res.json())
         .then(handleErrors2);
@@ -113,14 +111,12 @@ export function deleteTimeReportV2(query) {
 }
 
 function handleErrors(response) {
-    console.log('slack api', response);
     if (!response.ok) {
         throw Error(response.error);
     }
     return response;
 }
 function handleErrors2(response) {
-    console.log('backend api', response);
     if (response.error) {
         throw Error(response.error);
     }

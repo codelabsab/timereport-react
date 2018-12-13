@@ -8,12 +8,14 @@ import DashBoardV2 from "../containers/DashBoardV2";
 import NavBar from "../containers/NavBar";
 import { CognitoUserService } from '../services/CognitoUserService';
 import ResetPassword from '../containers/ResetPassword';
+import * as Logger from '../services/LoggerService';
+
 const v2 = 'v2';
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = { isSignIn: false, isSignUp: false, isSignUpVerified: false };
-    console.log('use version: ' + VERSION);
+    Logger.log('current version: ' + VERSION);
     // based on version dashboard switching
     this.DashBoard = VERSION == v2 ? DashBoardV2 : DashBoard;
   }

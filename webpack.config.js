@@ -48,7 +48,7 @@ module.exports = {
       SLACK_ACCESS_TOKEN: process.env.SLACK_ACCESS_TOKEN,
       UserPoolId: process.env.UserPoolId,
       ClientId: process.env.ClientId,
-      VERSION: process.env.VERSION
+      VERSION: process.env.VERSION || 'v1'
     }),
     new CleanWebpackPlugin([outputDirectory]),
     new HtmlWebpackPlugin({
