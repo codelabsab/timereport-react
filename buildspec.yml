@@ -13,6 +13,8 @@ env:
     SLACK_ACCESS_TOKEN: "SLACK_ACCESS_TOKEN"
     UserPoolId: "UserPoolId"
     ClientId: "ClientId"
+    # switch in between version; if not set default is v1  
+    VERSION: "VERSION"
 phases:
   install:
     commands:
