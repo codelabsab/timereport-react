@@ -34,3 +34,11 @@ But the new feature that uses api v2 (2 collections : events and users), will av
 ```sh
 VERSION = v2
 ```
+##How It Works
+User need to signup at first (email confirmation step is there).
+
+Whenever user signedIn to system, it first uses this email to lookup slack user.
+
+If slack user found then it uses slack credentials as a token for furthere api call.
+
+If slack user is not found then it uses email domain as a token for further api call where only GET Request is allowed  (limited functionality).
